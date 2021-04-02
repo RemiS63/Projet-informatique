@@ -83,10 +83,14 @@ public FenetreDeJeu() {
         if (evt.getKeyCode() == evt.VK_LEFT) {
             this.jeu.getJoueur().setGauche(true);
         }
+        if (evt.getKeyCode() == 65) {
+            this.jeu.getJoueur().SaisirOeuf(this.jeu.oeuf);
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent evt) {
+        //System.out.println(evt.getKeyCode());        
         if (evt.getKeyCode() == 38) {
             this.jeu.getJoueur().setHaut(false);
         }
@@ -98,6 +102,9 @@ public FenetreDeJeu() {
         }
         if (evt.getKeyCode() == evt.VK_LEFT) {
             this.jeu.getJoueur().setGauche(false);
+        }
+        if (evt.getKeyCode() == 65) {
+            this.jeu.getJoueur().LacherOeuf(this.jeu.oeuf);
         }
     }
     /**

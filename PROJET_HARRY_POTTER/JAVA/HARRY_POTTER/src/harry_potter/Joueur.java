@@ -16,7 +16,8 @@ public class Joueur {
 
     protected BufferedImage sprite ;
     protected double x , y;
-    private boolean gauche , droite , haut , bas ;
+    protected boolean gauche , droite , haut , bas ;
+    protected double vitesse;
     
     public  Joueur(){
         
@@ -32,20 +33,21 @@ public class Joueur {
          this.droite = false;
          this.haut = false;
          this.bas = false;
+         this.vitesse = 5;
     }
     
     public void miseAJour () {
         if (this.gauche ) {
-            x -= 5;
+            x -= vitesse;
         }         
         if (this.droite ) {
-            x += 5;
+            x += vitesse;
         }
         if (this.haut ) {
-            y -= 5;
+            y -= vitesse;
         }
         if (this.bas ) {
-            y += 5;
+            y += vitesse;
         }         
         if (x > 800 - sprite.getWidth() ) { // collision avec le bord droit de la scene
             x = 800 - sprite.getWidth() ;
@@ -58,8 +60,23 @@ public class Joueur {
         }
         if (y < 0) { // collision avec le bord gauche de la scene
             y = 0;
-        }
-}
+        }        
+    }
+    public void SaisirOeuf(Oeuf oeuf){
+        double xo = oeuf.x;
+        double yo = oeuf.y;        
+        double r = 10;
+        double djo = Math.sqrt(Math.pow(x-xo,2) + Math.pow(y-yo,2));
+        if(djo<r) { 
+            oeuf.saisi=true;
+            vitesse = 2;
+        }            
+    }
+    public void LacherOeuf(Oeuf oeuf){
+        oeuf.saisi=false;
+        vitesse = 5;            
+    }
+    
         public void rendu ( Graphics2D contexte ) {
             contexte.drawImage(this.sprite , (int) x , (int) y , null);
         }

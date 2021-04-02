@@ -16,23 +16,27 @@ public class Jeu {
     private MAP_DRAGON carte;
     private Joueur joueur1;
     private Dragon dragon;
+    protected Oeuf oeuf;
      
     public Jeu() {   
         this.carte = new MAP_DRAGON();
         this.joueur1 = new Joueur();
         this.dragon = new Dragon();
+        this.oeuf = new Oeuf();
     }
 
     public void miseAJour() {
         this.carte.miseAJour();
         this.joueur1.miseAJour();
         this.dragon.miseAJour(joueur1);
+        this.oeuf.miseAJour(joueur1);
     }
 
     public void rendu(Graphics2D contexte) {        
         this.carte.rendu(contexte);
         this.joueur1.rendu(contexte);
         this.dragon.rendu(contexte);
+        this.oeuf.rendu(contexte);
     }
     public Joueur getJoueur(){
         return(this.joueur1);

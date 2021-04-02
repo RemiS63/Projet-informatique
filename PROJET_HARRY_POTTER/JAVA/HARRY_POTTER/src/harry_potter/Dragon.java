@@ -36,7 +36,6 @@ public class Dragon {
         double yj = joueur1.getY();        
         double r = 200;
         double rj = Math.sqrt(Math.pow(xj-400,2) + Math.pow(yj-250,2));
-        System.out.println(""+xj+" "+yj+"  "+rj);
         if(rj<r) { 
             double xjd = this.x-xj;
             double yjd = this.y-yj;
