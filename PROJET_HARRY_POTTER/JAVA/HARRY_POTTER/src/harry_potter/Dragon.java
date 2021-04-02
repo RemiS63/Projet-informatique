@@ -41,8 +41,12 @@ public class Dragon {
             double xjd = this.x-xj;
             double yjd = this.y-yj;
             double djd = Math.sqrt((Math.pow(xjd,2) + Math.pow(yjd,2))); 
-            this.x=x-xjd*3/djd;
-            this.y=y-yjd*3/djd;
+            double taille_dragon=Math.max(this.sprite.getWidth(), this.sprite.getHeight());
+            double taille_joueur=Math.max(joueur1.sprite.getWidth(), joueur1.sprite.getHeight());
+            if (djd>10+(taille_dragon+taille_joueur)/2){
+                this.x=x-xjd*3/djd;
+                this.y=y-yjd*3/djd;
+            }            
             /*while(this.x!= && this.y!=this.joueur.y){
                 if(this.getX()<this.joueur.getX()){
                     if(this.getY()<this.joueur.getY()){
@@ -71,8 +75,8 @@ public class Dragon {
         if (x < 0) { // collision avec le bord gauche de la scene
             x = 0;
         }
-        if (y > 500 - sprite.getWidth()) { // collision avec le bord droit de la scene
-            y = 500 - sprite.getWidth() ;
+        if (y > 500 - sprite.getHeight()) { // collision avec le bord droit de la scene
+            y = 500 - sprite.getHeight() ;
         }
         if (y < 0) { // collision avec le bord gauche de la scene
             y = 0;
