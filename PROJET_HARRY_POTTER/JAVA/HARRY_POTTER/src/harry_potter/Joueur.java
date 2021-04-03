@@ -5,6 +5,10 @@
  */
 package harry_potter;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -34,6 +38,22 @@ public class Joueur {
          this.haut = false;
          this.bas = false;
          this.vitesse = 5;
+         try {
+            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?)");
+            requete.setString(1, "Joueur1");
+            requete.setDouble(2, x);
+            requete.setDouble(3, y);
+            requete.setString(4, "testbleu20_20.png");
+            requete.setDouble(5, 100); 
+            requete.setDouble(6, 2);
+            System.out.println(requete);
+            requete.executeUpdate();
+            requete.close();
+            connexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public void miseAJour () {
@@ -60,7 +80,21 @@ public class Joueur {
         }
         if (y < 0) { // collision avec le bord gauche de la scene
             y = 0;
-        }        
+        } 
+        try {
+
+            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+
+            PreparedStatement requete = connexion.prepareStatement("UPDATE joueur SET x = ?, y = ? WHERE pseudo = ?");
+            requete.setDouble(1, x);
+            requete.setDouble(2, y);
+            requete.setString(3, "Joueur1");
+            requete.executeUpdate();
+            requete.close();
+            connexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     public void SaisirOeuf(Oeuf oeuf){
         double xo = oeuf.x;
