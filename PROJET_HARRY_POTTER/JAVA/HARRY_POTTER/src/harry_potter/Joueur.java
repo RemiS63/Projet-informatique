@@ -40,13 +40,14 @@ public class Joueur {
          this.vitesse = 5;
          try {
             Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?)");
+            PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?)");
             requete.setString(1, "Joueur1");
             requete.setDouble(2, x);
             requete.setDouble(3, y);
-            requete.setString(4, "testbleu20_20.png");
-            requete.setDouble(5, 100); 
-            requete.setDouble(6, 2);
+            requete.setString(4, "../MAP_DRAGON_images/testbleu20_20.png");
+            requete.setDouble(5, vitesse);
+            requete.setDouble(6, 100); 
+            requete.setDouble(7, 2);
             System.out.println(requete);
             requete.executeUpdate();
             requete.close();
@@ -104,11 +105,37 @@ public class Joueur {
         if(djo<r) { 
             oeuf.saisi=true;
             vitesse = 2;
-        }            
+        } 
+        try {
+
+            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+
+            PreparedStatement requete = connexion.prepareStatement("UPDATE joueur SET Vitesse = ? WHERE pseudo = ?");
+            requete.setDouble(1, vitesse);
+            requete.setString(2, "Joueur1");
+            requete.executeUpdate();
+            requete.close();
+            connexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     public void LacherOeuf(Oeuf oeuf){
         oeuf.saisi=false;
-        vitesse = 5;            
+        vitesse = 5; 
+        try {
+
+            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+
+            PreparedStatement requete = connexion.prepareStatement("UPDATE joueur SET Vitesse = ? WHERE pseudo = ?");
+            requete.setDouble(1, vitesse);
+            requete.setString(2, "Joueur1");
+            requete.executeUpdate();
+            requete.close();
+            connexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
         public void rendu ( Graphics2D contexte ) {
