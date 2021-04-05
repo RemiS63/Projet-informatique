@@ -13,13 +13,14 @@ import java.awt.Graphics2D;
  */
 public class Jeu {
     
-    private MAP_DRAGON carte;
+    private TileMap carte;
     private Joueur joueur1;
     private Dragon dragon;
     protected Oeuf oeuf;
      
     public Jeu() {   
-        this.carte = new MAP_DRAGON();
+        //changer le chemin pour le .txt pour Github
+        this.carte = new TileMap("C:\\Users\\Romain\\Desktop\\ENSMM\\SEMESTRES\\VERT\\Informatique\\Projet\\Github\\Projet-informatique\\Projet-informatique\\PROJET_HARRY_POTTER\\JAVA\\HARRY_POTTER\\src\\res\\testmap.txt", 32);
         this.joueur1 = new Joueur();
         this.dragon = new Dragon();
         this.oeuf = new Oeuf();

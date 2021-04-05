@@ -41,7 +41,7 @@ public class Joueur {
          try {
             Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?)");
-            requete.setString(1, "Joueur1");
+            requete.setString(1, "JoueurDeRomain");
             requete.setDouble(2, x);
             requete.setDouble(3, y);
             requete.setString(4, "../MAP_DRAGON_images/testbleu20_20.png");
