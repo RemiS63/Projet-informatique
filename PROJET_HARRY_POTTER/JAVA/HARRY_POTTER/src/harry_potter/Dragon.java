@@ -22,9 +22,10 @@ public class Dragon {
     
     protected double x, y;
     protected BufferedImage sprite;
+    protected Connection connection;
     
     
-    public Dragon(){
+    public Dragon(Connection connexion){
         try{
             this.sprite = ImageIO.read(getClass().getResource ("../MAP_DRAGON_images/testrouge20_20.png"));
         }
@@ -33,6 +34,7 @@ public class Dragon {
         }
         this.x = 400;
         this.y = 250;
+        this.connection=connexion;
     }
     
     public void miseAJour (Joueur joueur1) {  
@@ -43,8 +45,8 @@ public class Dragon {
         BufferedImage spritej;
         double taille_joueur=20;
         try {
-            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = connexion.prepareStatement("SELECT x, y, avatar FROM joueur;");
+            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            PreparedStatement requete = this.connection.prepareStatement("SELECT x, y, avatar FROM joueur;");
             ResultSet resultat = requete.executeQuery();            
             while (resultat.next()) { // pour chaque joueur
                 double xj = resultat.getDouble("x");
@@ -82,7 +84,7 @@ public class Dragon {
                 }
             }
             requete.close();
-            connexion.close();
+            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }          

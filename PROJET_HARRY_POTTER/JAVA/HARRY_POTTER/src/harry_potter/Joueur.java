@@ -22,8 +22,10 @@ public class Joueur {
     protected double x , y;
     protected boolean gauche , droite , haut , bas ;
     protected double vitesse;
+    protected String pseudo;
+    protected Connection connection;
     
-    public  Joueur(){
+    public  Joueur(String pseudo,Connection connexion){
         
          try {
          this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/testbleu20_20.png"));
@@ -38,10 +40,12 @@ public class Joueur {
          this.haut = false;
          this.bas = false;
          this.vitesse = 5;
+         this.pseudo=pseudo;
+         this.connection=connexion;
          try {
-            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?)");
-            requete.setString(1, "JoueurDeRomain");
+            requete.setString(1, pseudo);
             requete.setDouble(2, x);
             requete.setDouble(3, y);
             requete.setString(4, "../MAP_DRAGON_images/testbleu20_20.png");
@@ -51,23 +55,42 @@ public class Joueur {
             System.out.println(requete);
             requete.executeUpdate();
             requete.close();
-            connexion.close();
+            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
     
     public void miseAJour () {
+        double vitessediag=vitesse/Math.sqrt(2);
         if (this.gauche ) {
-            x -= vitesse;
-        }         
-        if (this.droite ) {
-            x += vitesse;
-        }
-        if (this.haut ) {
+            if (this.haut ) {
+                y -= vitessediag;
+                x -= vitessediag;
+            }
+            if (this.bas ) {
+                y += vitessediag;
+                x -= vitessediag;
+            } 
+            else{
+                x -= vitesse;
+            }
+        }else if (this.droite ) {
+            if (this.haut ) {
+                y -= vitessediag;
+                x += vitessediag;
+            }
+            if (this.bas ) {
+                y += vitessediag;
+                x += vitessediag;
+            }
+            else{
+                x += vitesse;
+            }            
+        }else if (this.haut ) {
             y -= vitesse;
         }
-        if (this.bas ) {
+        else if (this.bas ) {
             y += vitesse;
         }         
         if (x > 800 - sprite.getWidth() ) { // collision avec le bord droit de la scene
@@ -84,15 +107,15 @@ public class Joueur {
         } 
         try {
 
-            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
 
-            PreparedStatement requete = connexion.prepareStatement("UPDATE joueur SET x = ?, y = ? WHERE pseudo = ?");
+            PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET x = ?, y = ? WHERE pseudo = ?");
             requete.setDouble(1, x);
             requete.setDouble(2, y);
-            requete.setString(3, "Joueur1");
+            requete.setString(3, this.pseudo);
             requete.executeUpdate();
             requete.close();
-            connexion.close();
+            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -107,15 +130,14 @@ public class Joueur {
             vitesse = 2;
         } 
         try {
+            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
 
-            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-
-            PreparedStatement requete = connexion.prepareStatement("UPDATE joueur SET Vitesse = ? WHERE pseudo = ?");
+            PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET Vitesse = ? WHERE pseudo = ?");
             requete.setDouble(1, vitesse);
-            requete.setString(2, "Joueur1");
+            requete.setString(2, this.pseudo);
             requete.executeUpdate();
             requete.close();
-            connexion.close();
+            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -124,15 +146,13 @@ public class Joueur {
         oeuf.saisi=false;
         vitesse = 5; 
         try {
-
-            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-
-            PreparedStatement requete = connexion.prepareStatement("UPDATE joueur SET Vitesse = ? WHERE pseudo = ?");
+            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET Vitesse = ? WHERE pseudo = ?");
             requete.setDouble(1, vitesse);
-            requete.setString(2, "Joueur1");
+            requete.setString(2, this.pseudo);
             requete.executeUpdate();
             requete.close();
-            connexion.close();
+            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

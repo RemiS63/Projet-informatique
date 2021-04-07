@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,13 +27,13 @@ import javax.swing.Timer;
 
 public class FenetreDeJeu extends JFrame implements ActionListener, KeyListener {
 
-    private final BufferedImage buffer;
-    private final Graphics2D contexteBuffer;
-    private final Jeu jeu;
-    private final Timer timer;
-    private final JLabel jLabel1;
+    private BufferedImage buffer;
+    private Graphics2D contexteBuffer;
+    private Jeu jeu;
+    private Timer timer;
+    private JLabel jLabel1;
     
-public FenetreDeJeu() {    
+public FenetreDeJeu() throws SQLException {    
     // initialisation de la fenetre
         this.setSize(800, 500);
         this.setResizable(false);
@@ -51,7 +54,7 @@ public FenetreDeJeu() {
 
 
         // Creation du Timer qui appelle this.actionPerformed() tous les 40 ms
-        this.timer = new Timer(40, this);
+        this.timer = new Timer(30, this);
         this.timer.start();
     }
 
@@ -59,7 +62,11 @@ public FenetreDeJeu() {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.jeu.miseAJour();
-        this.jeu.rendu(contexteBuffer);
+        try {
+            this.jeu.rendu(contexteBuffer);
+        } catch (SQLException ex) {
+            Logger.getLogger(FenetreDeJeu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.jLabel1.repaint();
     }
     
@@ -110,10 +117,11 @@ public FenetreDeJeu() {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         // TODO code application logic here
         FenetreDeJeu fenetre = new FenetreDeJeu();
         fenetre.setVisible(true);
+        //fenetre.jeu.connection.close();
     }
     
 }
