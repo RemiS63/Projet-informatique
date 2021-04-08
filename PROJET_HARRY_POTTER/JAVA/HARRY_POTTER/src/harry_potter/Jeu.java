@@ -32,8 +32,8 @@ public class Jeu {
     public Jeu() throws SQLException {   
         this.connection = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
         //changer le chemin pour le .txt pour Github
-        this.carte = new TileMap("C:\\Users\\User\\Documents\\GitHub\\Projet-informatique\\PROJET_HARRY_POTTER\\JAVA\\HARRY_POTTER\\src\\res\\testmap.txt", 32);
-        this.joueur1 = new Joueur("Joueur de Rémi",connection);
+        this.carte = new TileMap("C:\\Users\\user\\Documents\\GitHub\\Projet-informatique\\PROJET_HARRY_POTTER\\JAVA\\HARRY_POTTER\\src\\res\\testmap.txt", 32);
+        this.joueur1 = new Joueur("Susinor",connection);
         this.dragon = new Dragon(connection);
         this.oeuf = new Oeuf();
     }
