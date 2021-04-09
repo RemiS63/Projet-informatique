@@ -33,8 +33,8 @@ public class Joueur {
              Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
          }
          
-         this.x = 0;
-         this.y = 0;
+         this.x = 20;
+         this.y = 40;
          this.gauche = false;
          this.droite = false;
          this.haut = false;
@@ -93,17 +93,17 @@ public class Joueur {
         else if (this.bas ) {
             y += vitesse;
         }         
-        if (x > 800 - sprite.getWidth() ) { // collision avec le bord droit de la scene
-            x = 800 - sprite.getWidth() ;
+        if (x > 780 - sprite.getWidth() ) { // collision avec le bord droit de la scene
+            x = 780 - sprite.getWidth() ;
         }
-        if (x < 0) { // collision avec le bord gauche de la scene
-            x = 0;
+        if (x < 20) { // collision avec le bord gauche de la scene
+            x = 20;
         }
-        if (y > 500 - sprite.getWidth()) { // collision avec le bord droit de la scene
-            y = 500 - sprite.getWidth() ;
+        if (y > 460 - sprite.getWidth()) { // collision avec le bord droit de la scene
+            y = 460 - sprite.getWidth() ;
         }
-        if (y < 0) { // collision avec le bord gauche de la scene
-            y = 0;
+        if (y < 40) { // collision avec le bord gauche de la scene
+            y = 40;
         } 
         try {
 

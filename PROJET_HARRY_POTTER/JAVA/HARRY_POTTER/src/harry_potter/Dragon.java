@@ -69,8 +69,7 @@ public class Dragon {
                         catch(IOException ex){
                             Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
                         }                        
-                    }
-       
+                    }       
                     if (djdn<djd){ //si ce joueur est plus proche que les autre
                         xjd=xjdn;
                         yjd=yjdn;
@@ -92,18 +91,20 @@ public class Dragon {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+        double taille_dragon=Math.max(this.sprite.getWidth(), this.sprite.getHeight());     
         if(djd==0){
             xjd=this.x-400;
             yjd=this.y-250;
-            djd = Math.sqrt(Math.pow(xjd,2) + Math.pow(yjd,2));
-        }
-        
-        double taille_dragon=Math.max(this.sprite.getWidth(), this.sprite.getHeight());               
-        if (djd>10+(taille_dragon+taille_joueur)/2){
+            djd=Math.sqrt(Math.pow(xjd,2) + Math.pow(yjd,2));
+            if(djd>3){
+                this.x=x-xjd*3/djd; //dragon bouge 3 pixel
+                this.y=y-yjd*3/djd;
+            }            
+        }                  
+        else if (djd>10+(taille_dragon+taille_joueur)/2){
             this.x=x-xjd*3/djd; //dragon bouge 3 pixel
             this.y=y-yjd*3/djd;
-        }        
+        }                  
         if (x > 800 - sprite.getWidth() ) { // collision avec le bord droit de la scene
             x = 800 - sprite.getWidth() ;
         }
