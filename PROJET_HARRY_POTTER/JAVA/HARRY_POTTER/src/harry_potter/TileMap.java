@@ -61,6 +61,12 @@ public class TileMap {
         BufferedImage imgTerre = null;
         BufferedImage imgHerbe = null;
         BufferedImage imgBaseJoueur = null;
+        BufferedImage imgTerrain = null;
+        BufferedImage imgPierre = null;
+        BufferedImage imgPierre2 = null;
+        BufferedImage imgPierre3 = null;
+        BufferedImage imgPierre4 = null;
+        
         try{
             CelluleTerre terre = new CelluleTerre();
             imgTerre = ImageIO.read(getClass().getResource(terre.GetCheminImage()));
@@ -70,6 +76,21 @@ public class TileMap {
             
             CelluleBaseJoueur baseJoueur = new CelluleBaseJoueur();
             imgBaseJoueur = ImageIO.read(getClass().getResource(baseJoueur.GetCheminImage()));
+            
+            CelluleTerrain terrain = new CelluleTerrain();
+            imgTerrain = ImageIO.read(getClass().getResource(terrain.GetCheminImage()));
+            
+            CellulePierre pierre = new CellulePierre();
+            imgPierre = ImageIO.read(getClass().getResource(pierre.GetCheminImage()));
+            
+            CellulePierre2 pierre2 = new CellulePierre2();
+            imgPierre2 = ImageIO.read(getClass().getResource(pierre2.GetCheminImage()));
+            
+            CellulePierre3 pierre3 = new CellulePierre3();
+            imgPierre3 = ImageIO.read(getClass().getResource(pierre3.GetCheminImage()));
+            
+            CellulePierre4 pierre4 = new CellulePierre4();
+            imgPierre4 = ImageIO.read(getClass().getResource(pierre4.GetCheminImage()));
         }
         catch(Exception e) {}
 
@@ -85,13 +106,40 @@ public class TileMap {
                 if (rc == 1){
                     AffineTransform at = new AffineTransform();
                     at.translate(col*xImage,ligne*yImage);
-                    g.drawImage(imgHerbe, at, null);
+                    g.drawImage(imgTerrain, at, null);
                 }
                 if (rc == 2){
                     AffineTransform at = new AffineTransform();
                     at.translate(col*xImage,ligne*yImage);
                     g.drawImage(imgBaseJoueur, at, null);
                 }
+                if (rc == 3){
+                    AffineTransform at = new AffineTransform();
+                    at.translate(col*xImage,ligne*yImage);
+                    g.drawImage(imgHerbe, at, null);
+                }
+                if (rc == 4){
+                    AffineTransform at = new AffineTransform();
+                    at.translate(col*xImage,ligne*yImage);
+                    g.drawImage(imgPierre, at, null);
+                }
+                if (rc == 5){
+                    AffineTransform at = new AffineTransform();
+                    at.translate(col*xImage,ligne*yImage);
+                    g.drawImage(imgPierre2, at, null);
+                }
+                if (rc == 6){
+                    AffineTransform at = new AffineTransform();
+                    at.translate(col*xImage,ligne*yImage);
+                    g.drawImage(imgPierre3, at, null);
+                }
+                if (rc == 7){
+                    AffineTransform at = new AffineTransform();
+                    at.translate(col*xImage,ligne*yImage);
+                    g.drawImage(imgPierre4, at, null);
+                }
+                
+                
             }
         }
     }
