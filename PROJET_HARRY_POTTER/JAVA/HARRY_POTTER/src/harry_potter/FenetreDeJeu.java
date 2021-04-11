@@ -5,6 +5,7 @@
  */
 package harry_potter;
 
+import javax.swing.JOptionPane;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,7 +34,7 @@ public class FenetreDeJeu extends JFrame implements ActionListener, KeyListener 
     private Timer timer;
     private JLabel jLabel1;
     
-public FenetreDeJeu() throws SQLException {    
+public FenetreDeJeu(String pseudo) throws SQLException {    
     // initialisation de la fenetre
         this.setSize(800, 500);
         this.setResizable(false);
@@ -45,7 +46,7 @@ public FenetreDeJeu() throws SQLException {
         this.pack();
         
         // Creation du jeu
-        this.jeu = new Jeu();
+        this.jeu = new Jeu(pseudo);
 
         // Creation du buffer pour l'affichage du jeu et recuperation du contexte graphique
         this.buffer = new BufferedImage(this.jLabel1.getWidth(), this.jLabel1.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -118,10 +119,12 @@ public FenetreDeJeu() throws SQLException {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        // TODO code application logic here
-        FenetreDeJeu fenetre = new FenetreDeJeu();
-        fenetre.setVisible(true);
-        //fenetre.jeu.connection.close();
+        String pseudo = JOptionPane.showInputDialog(null, "Entrez votre pseudo");
+        if (pseudo != null) {
+            FenetreDeJeu fenetre = new FenetreDeJeu(pseudo);
+            fenetre.setVisible(true);
+        }       
+
     }
     
 }
