@@ -28,7 +28,7 @@ public class Joueur {
     public  Joueur(String pseudo,Connection connexion){
         
          try {
-         this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/testbleu20_20.png"));
+         this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/harry potter1.png"));
          } catch ( IOException ex ) {
              Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
          }
@@ -48,7 +48,7 @@ public class Joueur {
             requete.setString(1, pseudo);
             requete.setDouble(2, x);
             requete.setDouble(3, y);
-            requete.setString(4, "../MAP_DRAGON_images/testbleu20_20.png");
+            requete.setString(4, "../MAP_DRAGON_images/harry potter1.png");
             requete.setDouble(5, vitesse);
             requete.setDouble(6, 100); 
             requete.setDouble(7, 2);

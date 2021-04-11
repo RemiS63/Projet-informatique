@@ -14,6 +14,6 @@ public class CellulePierre3 extends Cellule {
     private String cheminImage;
     
     public CellulePierre3(){
-        super(2, "/MAP_DRAGON_images/pixelpierre3.png");
+        super(5, "/MAP_DRAGON_images/pixelpierre3.png");
     }
 }

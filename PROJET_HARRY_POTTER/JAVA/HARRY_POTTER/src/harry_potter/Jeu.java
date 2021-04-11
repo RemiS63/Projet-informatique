@@ -69,7 +69,7 @@ public class Jeu {
             double y = resultat.getDouble("y");
             String avatar = resultat.getString("avatar");
             try {
-                BufferedImage sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/testbleu20_20.png"));
+                BufferedImage sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/harry potter1.png"));
                 contexte.drawImage(sprite, (int) x , (int) y, null);
             } catch ( IOException ex ) {
                 Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );

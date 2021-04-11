@@ -27,7 +27,7 @@ public class Dragon {
     
     public Dragon(Connection connexion){
         try{
-            this.sprite = ImageIO.read(getClass().getResource ("../MAP_DRAGON_images/testrouge20_20.png"));
+            this.sprite = ImageIO.read(getClass().getResource ("../MAP_DRAGON_images/Vouivre1.png"));
         }
         catch(IOException ex){
             Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);

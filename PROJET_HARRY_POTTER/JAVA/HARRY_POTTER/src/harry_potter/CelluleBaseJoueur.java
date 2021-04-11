@@ -14,6 +14,6 @@ public class CelluleBaseJoueur extends Cellule {
     private String cheminImage;
     
     public CelluleBaseJoueur(){
-        super(2, "/MAP_DRAGON_images/pixelgris.png");
+        super(1, "/MAP_DRAGON_images/pixelgris.png");
     }
 }
