@@ -46,7 +46,7 @@ public class Jeu {
     }
 
     public void rendu(Graphics2D contexte) throws SQLException {        
-        this.carte.rendu(contexte);
+        this.carte.rendu(contexte);        
         this.afficherJoueurs(contexte);
         this.dragon.rendu(contexte);
         this.oeuf.rendu(contexte);
@@ -70,7 +70,7 @@ public class Jeu {
             String avatar = resultat.getString("avatar");
             try {
                 BufferedImage sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/harry potter1.png"));
-                contexte.drawImage(sprite, (int) x , (int) y, null);
+                contexte.drawImage (sprite , (int) x-sprite.getWidth()/2 , (int) y-sprite.getHeight()/2 , null);
             } catch ( IOException ex ) {
                 Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
             }                

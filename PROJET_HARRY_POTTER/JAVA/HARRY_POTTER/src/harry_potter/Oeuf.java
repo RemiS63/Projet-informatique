@@ -28,10 +28,9 @@ public class Oeuf {
          } catch ( IOException ex ) {
              Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
          }
-         
-         this.x = 400;
-         this.y = 250;
-         this.saisi=false;
+        this.x = 400;       //milieu de map d'axe x
+        this.y = 250;
+        this.saisi=false;
     }
     
     public void miseAJour (Joueur joueur) {
@@ -42,7 +41,7 @@ public class Oeuf {
     }
         
     public void rendu ( Graphics2D contexte ) {
-            contexte.drawImage(this.sprite , (int) x , (int) y , null);
+            contexte.drawImage (this.sprite , (int) x-sprite.getWidth()/2 , (int) y-sprite.getHeight()/2 , null);
     }
     
     public double getX () {

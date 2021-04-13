@@ -43,8 +43,10 @@ public class Dragon {
         double djd = 0;     //distance entre joueur dragon
         double xjd = 0;     //coordonne x entre joueur dragon
         double yjd = 0;     //coordonne y entre joueur dragon
-        BufferedImage spritej;
-        double taille_joueur=20;
+        double dxjd = 0;    //distance x joueur dragon entre image
+        double dyjd = 0;    //distance y joueur dragon entre image
+        BufferedImage spritej = null;
+        double taille_joueur=40;
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = this.connection.prepareStatement("SELECT x, y, avatar FROM joueur;");
@@ -53,45 +55,39 @@ public class Dragon {
                 double xj = resultat.getDouble("x");        //avoir le coordonne x de joueur
                 double yj = resultat.getDouble("y");        //avoir le coordonne y de joueur
                 String avatar = resultat.getString("avatar");
-                double rj = Math.sqrt(Math.pow(xj-400,2) + Math.pow(yj-250,2));     //radius de joueur
+                double rj = Math.sqrt(Math.pow(xj-(400-sprite.getWidth()/2),2) + Math.pow(yj-(250-sprite.getHeight()/2),2));     //radius de joueur
                 if(rj<r) { //si le joueur est dans le cercle
+                    try{
+                        spritej = ImageIO.read(getClass().getResource (avatar));
+                    }
+                    catch(IOException ex){
+                        Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
+                    }                      
                     double xjdn = this.x-xj;    //coordonne x dragon - joueur
                     double yjdn = this.y-yj;    //coordonne y dragon - joueur
+                    double dxjdn = Math.abs(xjdn)-sprite.getWidth()/2-spritej.getWidth()/2;
+                    double dyjdn = Math.abs(yjdn)-sprite.getHeight()/2-spritej.getHeight()/2;
                     double djdn = Math.sqrt(Math.pow(xjdn,2) + Math.pow(yjdn,2)); //distance entre joueur dragon
                     if (djd == 0) { //pour le premier joueur dans le cercle
                         xjd=xjdn;
                         yjd=yjdn;   //plus proche joueur
-                        djd=djdn;
-                        try{
-                            spritej = ImageIO.read(getClass().getResource (avatar));
-                            taille_joueur=Math.max(spritej.getWidth(), joueur1.sprite.getHeight());
-                        }
-                        catch(IOException ex){
-                            Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
-                        }                        
+                        djd=djdn; 
+                        dxjd=dxjdn;
+                        dyjd=dyjdn;
                     }       
                     if (djdn<djd){ //si ce joueur est plus proche que les autre
                         xjd=xjdn;
                         yjd=yjdn;
-                        djd=djdn;
-                        try{
-                            spritej = ImageIO.read(getClass().getResource (avatar));
-                            taille_joueur=Math.max(spritej.getWidth(), joueur1.sprite.getHeight());
-                        }
-                        catch(IOException ex){
-                            Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
-                        }                        
-                    }
-                   
-                }
-                
+                        djd=djdn;  
+                        dxjd=dxjdn;
+                        dyjd=dyjdn;
+                    }                   
+                }                
             }
             requete.close();
-            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        double taille_dragon=Math.max(this.sprite.getWidth(), this.sprite.getHeight());     
+        }             
         if(djd==0){
             xjd=this.x-400;
             yjd=this.y-250;
@@ -101,26 +97,32 @@ public class Dragon {
                 this.y=y-yjd*3/djd;
             }            
         }                  
-        else if (djd>10+(taille_dragon+taille_joueur)/2){
-            this.x=x-xjd*3/djd; //dragon bouge 3 pixel
+        if (dxjd>0){
+            this.x=x-xjd*3/djd; //dragon bouge 3 pixel            
+        } 
+        if (dyjd>0){
             this.y=y-yjd*3/djd;
-        }                  
-        if (x > 800 - sprite.getWidth() ) { // collision avec le bord droit de la scene
-            x = 800 - sprite.getWidth() ;
         }
-        if (x < 0) { // collision avec le bord gauche de la scene
-            x = 0;
+        if (x > 800) { // collision avec le bord droit de la scene
+            x = 800 ;
+            System.out.println("dragon trop droite");
         }
-        if (y > 500 - sprite.getHeight()) { // collision avec le bord droit de la scene
-            y = 500 - sprite.getHeight() ;
+        if (x < sprite.getWidth()/2) { // collision avec le bord gauche de la scene
+            x = (int) sprite.getWidth()/2;
+            System.out.println("dragon trop gauche");
         }
-        if (y < 0) { // collision avec le bord gauche de la scene
-            y = 0;
+        if (y > 500 ) { // collision avec le bord bas de la scene
+            y = 500 ;
+            System.out.println("dragon trop bas");
+        }
+        if (y < sprite.getHeight()/2) { // collision avec le bord haut de la scene
+            y = (int) sprite.getHeight()/2;
+            System.out.println("dragon trop haut");
         }
     }
     
     public void rendu ( Graphics2D contexte ) {
-        contexte . drawImage (this. sprite , (int) x , (int) y , null);
+        contexte . drawImage (this. sprite , (int) x-sprite.getWidth()/2 , (int) y-sprite.getHeight()/2 , null);
     }
     
     public void demarrer() {

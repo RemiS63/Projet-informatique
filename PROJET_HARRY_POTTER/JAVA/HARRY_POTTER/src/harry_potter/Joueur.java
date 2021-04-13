@@ -33,8 +33,8 @@ public class Joueur {
              Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
          }
          
-         this.x = 20;
-         this.y = 40;
+         this.x = 30;
+         this.y = 45;
          this.gauche = false;
          this.droite = false;
          this.haut = false;
@@ -93,17 +93,17 @@ public class Joueur {
         else if (this.bas ) {
             y += vitesse;
         }         
-        if (x > 780 - sprite.getWidth() ) { // collision avec le bord droit de la scene
-            x = 780 - sprite.getWidth() ;
+        if (x > 790 - sprite.getWidth() ) { // collision avec le bord droit de la scene
+            x = 790 - sprite.getWidth() ;
         }
-        if (x < 20) { // collision avec le bord gauche de la scene
-            x = 20;
+        if (x < 30) { // collision avec le bord gauche de la scene
+            x = 30;
         }
-        if (y > 460 - sprite.getWidth()) { // collision avec le bord droit de la scene
-            y = 460 - sprite.getWidth() ;
+        if (y > 480 - sprite.getHeight()) { // collision avec le bord droit de la scene
+            y = 480 - sprite.getHeight() ;
         }
-        if (y < 40) { // collision avec le bord gauche de la scene
-            y = 40;
+        if (y < 45) { // collision avec le bord gauche de la scene
+            y = 45;
         } 
         try {
 
@@ -159,7 +159,7 @@ public class Joueur {
     }
     
         public void rendu ( Graphics2D contexte ) {
-            contexte.drawImage(this.sprite , (int) x , (int) y , null);
+            contexte.drawImage (this.sprite , (int) x-sprite.getWidth()/2 , (int) y-sprite.getHeight()/2 , null);
         }
         
         public void setGauche (boolean gauche ) {
