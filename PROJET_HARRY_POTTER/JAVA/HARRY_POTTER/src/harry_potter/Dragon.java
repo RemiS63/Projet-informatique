@@ -75,14 +75,14 @@ public class Dragon {
                         dxjd=dxjdn;
                         dyjd=dyjdn;
                     }       
-                    if (djdn<djd){ //si ce joueur est plus proche que les autre
+                    /*if (djdn<djd){ //si ce joueur est plus proche que les autre
                         xjd=xjdn;
                         yjd=yjdn;
                         djd=djdn;  
                         dxjd=dxjdn;
                         dyjd=dyjdn;
-                    }                   
-                }                
+                    }*/
+                }
             }
             requete.close();
         } catch (SQLException ex) {
@@ -96,7 +96,7 @@ public class Dragon {
                 this.x=x-xjd*3/djd; //dragon bouge 3 pixel
                 this.y=y-yjd*3/djd;
             }            
-        }                  
+        }
         if (dxjd>0){
             this.x=x-xjd*3/djd; //dragon bouge 3 pixel            
         } 
