@@ -75,13 +75,20 @@ public class Dragon {
                         dxjd=dxjdn;
                         dyjd=dyjdn;
                     }       
-                    /*if (djdn<djd){ //si ce joueur est plus proche que les autre
+                    if (djdn<djd){ //si ce joueur est plus proche que les autre
                         xjd=xjdn;
                         yjd=yjdn;
                         djd=djdn;  
                         dxjd=dxjdn;
                         dyjd=dyjdn;
-                    }*/
+                    }
+                    if(rj<ro){
+                        xjd=xjdn;
+                        yjd=yjdn;
+                        djd=djdn;
+                        dxjd=dxjdn;
+                        dyjd=dyjdn;
+                    }
                 }
             }
             requete.close();
