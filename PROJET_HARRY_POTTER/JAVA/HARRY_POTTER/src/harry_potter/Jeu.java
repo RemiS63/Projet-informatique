@@ -24,7 +24,7 @@ import javax.imageio.ImageIO;
 public class Jeu {
     
     private TileMap carte;
-    private Joueur joueur1;
+    protected Joueur joueur1;
     private Dragon dragon;
     protected Oeuf oeuf;
     protected Connection connection;
@@ -35,14 +35,14 @@ public class Jeu {
         this.carte = new TileMap("C:\\Users\\User\\Documents\\GitHub\\Projet-informatique\\PROJET_HARRY_POTTER\\JAVA\\HARRY_POTTER\\src\\res\\testmap.txt", 32);
         this.joueur1 = new Joueur(pseudo,connection);
         this.dragon = new Dragon(connection);
-        this.oeuf = new Oeuf();
+        this.oeuf = new Oeuf(connection);
     }
 
     public void miseAJour() {
         this.carte.miseAJour();
         this.joueur1.miseAJour();
-        this.dragon.miseAJour(joueur1);
-        this.oeuf.miseAJour(joueur1);
+        this.dragon.miseAJour();
+        this.oeuf.miseAJour();
     }
 
     public void rendu(Graphics2D contexte) throws SQLException {        

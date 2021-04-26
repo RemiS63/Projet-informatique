@@ -37,7 +37,7 @@ public class Dragon {
         this.connection=connexion;
     }
     
-    public void miseAJour (Joueur joueur1) {  
+    public void miseAJour () {  
         double r = 200;     //radius de cercle
         double ro = 100;    //radius d'oeuf
         double djd = 0;     //distance entre joueur dragon

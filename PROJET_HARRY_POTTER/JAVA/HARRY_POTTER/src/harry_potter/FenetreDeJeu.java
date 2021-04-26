@@ -92,7 +92,7 @@ public FenetreDeJeu(String pseudo) throws SQLException {
             this.jeu.getJoueur().setGauche(true);
         }
         if (evt.getKeyCode() == 65) {
-            this.jeu.getJoueur().SaisirOeuf(this.jeu.oeuf);
+            this.jeu.joueur1.SaisirOeuf(this.jeu.oeuf);
         }
     }
 

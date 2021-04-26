@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -106,9 +107,7 @@ public class Joueur {
             y = 45;
         } 
         try {
-
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-
             PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET x = ?, y = ? WHERE pseudo = ?");
             requete.setDouble(1, x);
             requete.setDouble(2, y);
@@ -127,35 +126,13 @@ public class Joueur {
         double djo = Math.sqrt(Math.pow(x-xo,2) + Math.pow(y-yo,2));
         if(djo<r) { 
             oeuf.saisi=true;
+            oeuf.pseudo_joueur=this.pseudo;
             vitesse = 2;
         } 
-        try {
-            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-
-            PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET Vitesse = ? WHERE pseudo = ?");
-            requete.setDouble(1, vitesse);
-            requete.setString(2, this.pseudo);
-            requete.executeUpdate();
-            requete.close();
-            //connexion.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
     }
     public void LacherOeuf(Oeuf oeuf){
         oeuf.saisi=false;
-        vitesse = 5; 
-        try {
-            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET Vitesse = ? WHERE pseudo = ?");
-            requete.setDouble(1, vitesse);
-            requete.setString(2, this.pseudo);
-            requete.executeUpdate();
-            requete.close();
-            //connexion.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        vitesse = 5;
     }
     
         public void rendu ( Graphics2D contexte ) {
