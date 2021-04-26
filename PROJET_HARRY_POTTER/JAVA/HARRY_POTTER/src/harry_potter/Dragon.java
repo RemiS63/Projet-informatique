@@ -55,7 +55,7 @@ public class Dragon {
                 double xj = resultat.getDouble("x");        //avoir le coordonne x de joueur
                 double yj = resultat.getDouble("y");        //avoir le coordonne y de joueur
                 String avatar = resultat.getString("avatar");
-                double rj = Math.sqrt(Math.pow(xj-(400-sprite.getWidth()/2),2) + Math.pow(yj-(250-sprite.getHeight()/2),2));     //radius de joueur
+                double rj = Math.sqrt(Math.pow(xj-(400+0*sprite.getWidth()/2),2) + Math.pow(yj-(250+0*sprite.getHeight()/2),2));     //radius de joueur
                 if(rj<r) { //si le joueur est dans le cercle
                     try{
                         spritej = ImageIO.read(getClass().getResource (avatar));
