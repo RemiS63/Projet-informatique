@@ -30,7 +30,7 @@ public class Oeuf {
     
     public Oeuf(Connection connexion){
         try {
-         this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/testjaune20_20.png"));
+         this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/oeuf.png"));
          } catch ( IOException ex ) {
              Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
          }
@@ -45,7 +45,7 @@ public class Oeuf {
             requete.setInt(1, 1);
             requete.setDouble(2, x);
             requete.setDouble(3, y);
-            requete.setString(4, "../MAP_DRAGON_images/testjaune20_20.png");
+            requete.setString(4, "../MAP_DRAGON_images/oeuf.png");
             requete.setString(5, "oeuf");                    
             requete.setString(6, pseudo_joueur);             
             requete.setBoolean(7, saisi);
