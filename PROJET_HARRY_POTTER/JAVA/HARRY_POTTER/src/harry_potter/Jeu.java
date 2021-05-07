@@ -31,7 +31,8 @@ public class Jeu {
      
     public Jeu(String pseudo) throws SQLException {   
         this.connection = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-        this.carte = new TileMap((getClass().getResource("../res/testmap.txt")).toString().substring(6), 32);
+        this.carte = new TileMap((getClass().getResource("../res/testmap.txt")).toString().substring(5), 32);
+        System.out.println((getClass().getResource("../res/testmap.txt")).toString().substring(5));
         this.joueur1 = new Joueur(pseudo,connection);
         this.dragon = new Dragon(connection);
         this.oeuf = new Oeuf(connection);

@@ -25,6 +25,7 @@ public class Joueur {
     protected double vitesse;
     protected String pseudo;
     protected Connection connection;
+    protected int possedeLoeuf;
     
     public  Joueur(String pseudo,Connection connexion){
         
@@ -42,10 +43,11 @@ public class Joueur {
          this.bas = false;
          this.vitesse = 5;
          this.pseudo=pseudo;
+         this.possedeLoeuf=0;
          this.connection=connexion;
          try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?,?)");
             requete.setString(1, pseudo);
             requete.setDouble(2, x);
             requete.setDouble(3, y);
@@ -53,6 +55,7 @@ public class Joueur {
             requete.setDouble(5, vitesse);
             requete.setDouble(6, 100); 
             requete.setDouble(7, 2);
+            requete.setInt(8, possedeLoeuf);
             System.out.println(requete);
             requete.executeUpdate();
             requete.close();
@@ -108,10 +111,11 @@ public class Joueur {
         } 
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET x = ?, y = ? WHERE pseudo = ?");
+            PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET x = ?, y = ?, possedeLoeuf = ? WHERE pseudo = ?");
             requete.setDouble(1, x);
             requete.setDouble(2, y);
-            requete.setString(3, this.pseudo);
+            requete.setDouble(3, possedeLoeuf);
+            requete.setString(4, this.pseudo);
             requete.executeUpdate();
             requete.close();
             //connexion.close();
@@ -120,6 +124,7 @@ public class Joueur {
         }
     }
     public void SaisirOeuf(Oeuf oeuf){
+        this.possedeLoeuf=1;
         double xo = oeuf.x;
         double yo = oeuf.y;        
         double r = 10;
@@ -129,10 +134,12 @@ public class Joueur {
             oeuf.pseudo_joueur=this.pseudo;
             vitesse = 2;
         } 
+        
     }
     public void LacherOeuf(Oeuf oeuf){
         oeuf.saisi=false;
         vitesse = 5;
+        this.possedeLoeuf=0;
     }
     
         public void rendu ( Graphics2D contexte ) {
@@ -169,6 +176,9 @@ public class Joueur {
         
         public double getHauteur () {
             return sprite.getWidth () ;
+        }
+        public int getPossedeLoeuf() {
+            return possedeLoeuf;
         }
 }
 

@@ -38,6 +38,7 @@ public class Dragon {
     }
     
     public void miseAJour () {  
+        int aLoeuf =0;
         double r = 200;     //radius de cercle
         double ro = 100;    //radius d'oeuf
         double djd = 0;     //distance entre joueur dragon
@@ -49,20 +50,36 @@ public class Dragon {
         double taille_joueur=40;
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = this.connection.prepareStatement("SELECT x, y, avatar FROM joueur;");
+            PreparedStatement requete = this.connection.prepareStatement("SELECT x, y, possedeLoeuf, avatar FROM joueur;");
             ResultSet resultat = requete.executeQuery();            
-            while (resultat.next()) { // pour chaque joueur
+            while (resultat.next() && aLoeuf==0) { // pour chaque joueur
                 double xj = resultat.getDouble("x");        //avoir le coordonne x de joueur
                 double yj = resultat.getDouble("y");        //avoir le coordonne y de joueur
                 String avatar = resultat.getString("avatar");
                 double rj = Math.sqrt(Math.pow(xj-400,2) + Math.pow(yj-250,2));     //radius de joueur
-                if(rj<r) { //si le joueur est dans le cercle
+                aLoeuf = resultat.getInt("possedeLoeuf");
+                if (aLoeuf==1) {
+                    double xjdn = this.x-xj;    //coordonne x dragon - joueur
+                    double yjdn = this.y-yj;    //coordonne y dragon - joueur
+                    double dxjdn = Math.abs(xjdn)-sprite.getWidth()/2-spritej.getWidth()/2;
+                    double dyjdn = Math.abs(yjdn)-sprite.getHeight()/2-spritej.getHeight()/2;
+                    double djdn = Math.sqrt(Math.pow(xjdn,2) + Math.pow(yjdn,2)); //distance entre joueur dragon
+                    
+                    xjd=xjdn;
+                    yjd=yjdn;   //plus proche joueur
+                    djd=djdn; 
+                    dxjd=dxjdn;
+                    dyjd=dyjdn;
+                    
+                }
+                else if(rj<r) { //si le joueur est dans le cercle
                     try{
                         spritej = ImageIO.read(getClass().getResource (avatar));
                     }
                     catch(IOException ex){
                         Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
-                    }                      
+                    } 
+                    
                     double xjdn = this.x-xj;    //coordonne x dragon - joueur
                     double yjdn = this.y-yj;    //coordonne y dragon - joueur
                     double dxjdn = Math.abs(xjdn)-sprite.getWidth()/2-spritej.getWidth()/2;
@@ -74,21 +91,27 @@ public class Dragon {
                         djd=djdn; 
                         dxjd=dxjdn;
                         dyjd=dyjdn;
-                    }       
-                    if (djdn<djd){ //si ce joueur est plus proche que les autre
-                        xjd=xjdn;
+                    }   
+                    
+                    
+                   if (djdn<djd){ //si ce joueur est plus proche que les autre
+                       xjd=xjdn;
                         yjd=yjdn;
                         djd=djdn;  
-                        dxjd=dxjdn;
-                        dyjd=dyjdn;
-                    }
-                    if(rj<ro){
-                        xjd=xjdn;
-                        yjd=yjdn;
-                        djd=djdn;
-                        dxjd=dxjdn;
-                        dyjd=dyjdn;
-                    }
+                       dxjd=dxjdn;
+                      dyjd=dyjdn;
+                   }
+                   if(aLoeuf==1){
+                       
+                       
+                   }
+//                   if(rj<ro){
+//                       xjd=xjdn;
+//                        yjd=yjdn;       
+//                        djd=djdn;
+//                       dxjd=dxjdn;
+//                        dyjd=dyjdn;
+//                   }
                 }
             }
             requete.close();
