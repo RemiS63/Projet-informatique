@@ -154,21 +154,3 @@ public class Dragon {
     }
 
 }
-
-
-/*
-if(rj<ro){  //si ce joueur est dans la zone d'oeuf
-    xjd=xjdn;
-    yjd=yjdn;
-    djd=djdn;
-    try{
-        spritej = ImageIO.read(getClass().getResource (avatar));
-        taille_joueur=Math.max(spritej.getWidth(), joueur1.sprite.getHeight());
-    }
-    catch(IOException ex){
-        Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
-    }      
-}
-
-
-*/
