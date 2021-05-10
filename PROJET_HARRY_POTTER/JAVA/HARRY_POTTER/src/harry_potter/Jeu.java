@@ -28,7 +28,8 @@ public class Jeu {
     private Dragon dragon;
     protected Oeuf oeuf;
     protected Connection connection;
-     
+    protected BarreDeSante sante;
+    
     public Jeu(String pseudo) throws SQLException {   
         this.connection = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
         this.carte = new TileMap((getClass().getResource("../res/testmap.txt")).toString().substring(5), 32);
@@ -36,6 +37,7 @@ public class Jeu {
         this.joueur1 = new Joueur(pseudo,connection);
         this.dragon = new Dragon(connection);
         this.oeuf = new Oeuf(connection);
+        this.sante = new BarreDeSante(connection);
     }
 
     public void miseAJour() {
@@ -43,6 +45,7 @@ public class Jeu {
         this.joueur1.miseAJour();
         this.dragon.miseAJour();
         this.oeuf.miseAJour();
+        this.sante.miseAJour();
     }
 
     public void rendu(Graphics2D contexte) throws SQLException {        
@@ -50,6 +53,7 @@ public class Jeu {
         this.afficherJoueurs(contexte);
         this.dragon.rendu(contexte);
         this.oeuf.rendu(contexte);
+        this.sante.rendu(contexte);
     }
     public Joueur getJoueur(){
         return(this.joueur1);
