@@ -59,12 +59,17 @@ public class Dragon {
                 double rj = Math.sqrt(Math.pow(xj-400,2) + Math.pow(yj-250,2));     //radius de joueur
                 aLoeuf = resultat.getInt("possedeLoeuf");
                 if (aLoeuf==1) {
+                    try{
+                        spritej = ImageIO.read(getClass().getResource (avatar));
+                    }
+                    catch(IOException ex){
+                        Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
+                    } 
                     double xjdn = this.x-xj;    //coordonne x dragon - joueur
                     double yjdn = this.y-yj;    //coordonne y dragon - joueur
                     double dxjdn = Math.abs(xjdn)-sprite.getWidth()/2-spritej.getWidth()/2;
                     double dyjdn = Math.abs(yjdn)-sprite.getHeight()/2-spritej.getHeight()/2;
-                    double djdn = Math.sqrt(Math.pow(xjdn,2) + Math.pow(yjdn,2)); //distance entre joueur dragon
-                    
+                    double djdn = Math.sqrt(Math.pow(xjdn,2) + Math.pow(yjdn,2)); //distance entre joueur dragon                    
                     xjd=xjdn;
                     yjd=yjdn;   //plus proche joueur
                     djd=djdn; 

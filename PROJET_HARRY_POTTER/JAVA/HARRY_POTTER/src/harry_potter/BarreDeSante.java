@@ -44,13 +44,13 @@ public class BarreDeSante {
             while (resultat.next()) { // pour chaque joueur
                 nombreDeJoueur = nombreDeJoueur +1;
                 String pseudo = resultat.getString("pseudo");
-                System.out.println("pseudo = " + pseudo);
+                //System.out.println("pseudo = " + pseudo);
             } 
             requete.close();
             }catch (SQLException ex) {
             ex.printStackTrace();
         }
-        System.out.println("nombreDeJoueur = " + nombreDeJoueur);
+        //System.out.println("nombreDeJoueur = " + nombreDeJoueur);
         
     }
     
