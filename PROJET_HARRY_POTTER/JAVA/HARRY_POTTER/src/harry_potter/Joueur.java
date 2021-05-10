@@ -26,6 +26,8 @@ public class Joueur {
     protected String pseudo;
     protected Connection connection;
     protected int possedeLoeuf;
+    private bombe bombe;
+    protected int health;
     
     public  Joueur(String pseudo,Connection connexion){
         
@@ -44,6 +46,7 @@ public class Joueur {
          this.vitesse = 5;
          this.pseudo=pseudo;
          this.possedeLoeuf=0;
+         this.health=100;
          this.connection=connexion;
          try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
@@ -109,6 +112,10 @@ public class Joueur {
         if (y < 45) { // collision avec le bord gauche de la scene
             y = 45;
         } 
+        if (this.health==0){//le joueur n'a plus de point de vie
+            this.x=30;
+            this.y=45;
+        }
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = this.connection.prepareStatement("UPDATE joueur SET x = ?, y = ?, possedeLoeuf = ? WHERE pseudo = ?");
@@ -122,6 +129,9 @@ public class Joueur {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+    public void subirDegats(int degats){
+        this.health -=degats;
     }
     public void SaisirOeuf(Oeuf oeuf){
         this.possedeLoeuf=1;

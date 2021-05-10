@@ -94,6 +94,9 @@ public FenetreDeJeu(String pseudo) throws SQLException {
         if (evt.getKeyCode() == 65) {
             this.jeu.joueur1.SaisirOeuf(this.jeu.oeuf);
         }
+        if (evt.getKeyCode() == 32) {
+            this.jeu.lancerBombe();            
+        }
     }
 
     @Override

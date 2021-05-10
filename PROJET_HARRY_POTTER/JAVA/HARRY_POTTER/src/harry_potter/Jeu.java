@@ -26,6 +26,7 @@ public class Jeu {
     private TileMap carte;
     protected Joueur joueur1;
     private Dragon dragon;
+    private bombe bombe;
     protected Oeuf oeuf;
     protected Connection connection;
     protected BarreDeSante sante;
@@ -36,6 +37,7 @@ public class Jeu {
         System.out.println((getClass().getResource("../res/testmap.txt")).toString().substring(5));
         this.joueur1 = new Joueur(pseudo,connection);
         this.dragon = new Dragon(connection);
+        this.bombe=new bombe(connection);
         this.oeuf = new Oeuf(connection);
         this.sante = new BarreDeSante(connection);
     }
@@ -46,6 +48,8 @@ public class Jeu {
         this.dragon.miseAJour();
         this.oeuf.miseAJour();
         this.sante.miseAJour();
+        this.bombe.miseAJour();
+        System.out.println(""+this.joueur1.x+""+this.joueur1.y);
     }
 
     public void rendu(Graphics2D contexte) throws SQLException {        
@@ -54,6 +58,19 @@ public class Jeu {
         this.dragon.rendu(contexte);
         this.oeuf.rendu(contexte);
         this.sante.rendu(contexte);
+        this.bombe.rendu(contexte);
+    }
+    public void lancerBombe(){
+        double d=Math.sqrt(Math.pow(this.joueur1.x-this.dragon.x,2) + Math.pow(this.joueur1.y-this.dragon.y,2));
+        if (d<200){
+            this.bombe.xb=this.joueur1.x;
+            this.bombe.yb=this.joueur1.y;
+            this.bombe.xdep=this.joueur1.x;
+            this.bombe.ydep=this.joueur1.y;
+            this.bombe.xarr=this.dragon.x;
+            this.bombe.yarr=this.dragon.y;
+            this.bombe.affichee=true;
+        }        
     }
     public Joueur getJoueur(){
         return(this.joueur1);
