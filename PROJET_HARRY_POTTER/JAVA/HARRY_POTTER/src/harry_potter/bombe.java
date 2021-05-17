@@ -53,12 +53,14 @@ public class bombe {
         if(d!=0){
             this.xb=xb+xjd*this.vitesse/d;
             this.yb=yb+yjd*this.vitesse/d;
+            if (Math.signum(xjd)==Math.signum(xb-xarr) && Math.signum(yjd)==Math.signum(yb-yarr)){
+                this.affichee=false;
+            }
         }        
     }
     public void rendu ( Graphics2D contexte ) {
         if(this.affichee==true){
             contexte.drawImage (this. sprite , (int) xb , (int) yb , null);
-            System.out.println("bombe");
         }
     }
     public void lancer () {        

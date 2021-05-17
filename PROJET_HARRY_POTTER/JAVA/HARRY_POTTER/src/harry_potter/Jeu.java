@@ -34,7 +34,7 @@ public class Jeu {
     public Jeu(String pseudo) throws SQLException {   
         this.connection = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
         this.carte = new TileMap((getClass().getResource("../res/testmap.txt")).toString().substring(5), 32);
-        System.out.println((getClass().getResource("../res/testmap.txt")).toString().substring(5));
+        //System.out.println((getClass().getResource("../res/testmap.txt")).toString().substring(5));
         this.joueur1 = new Joueur(pseudo,connection);
         this.dragon = new Dragon(connection);
         this.bombe=new bombe(connection);
@@ -49,7 +49,7 @@ public class Jeu {
         this.oeuf.miseAJour();
         this.sante.miseAJour();
         this.bombe.miseAJour();
-        System.out.println(""+this.joueur1.x+""+this.joueur1.y);
+        //System.out.println(""+this.joueur1.x+""+this.joueur1.y);
     }
 
     public void rendu(Graphics2D contexte) throws SQLException {        
@@ -61,16 +61,51 @@ public class Jeu {
         this.bombe.rendu(contexte);
     }
     public void lancerBombe(){
-        double d=Math.sqrt(Math.pow(this.joueur1.x-this.dragon.x,2) + Math.pow(this.joueur1.y-this.dragon.y,2));
-        if (d<200){
+        int portee = 100;
+        //double d=Math.sqrt(Math.pow(this.joueur1.x-this.dragon.x,2) + Math.pow(this.joueur1.y-this.dragon.y,2));
+        //if (d<200){
             this.bombe.xb=this.joueur1.x;
             this.bombe.yb=this.joueur1.y;
             this.bombe.xdep=this.joueur1.x;
-            this.bombe.ydep=this.joueur1.y;
-            this.bombe.xarr=this.dragon.x;
-            this.bombe.yarr=this.dragon.y;
+            this.bombe.ydep=this.joueur1.y;            
             this.bombe.affichee=true;
-        }        
+            if (this.joueur1.gauche ) {
+                if (this.joueur1.haut ) {
+                    this.bombe.xarr=this.joueur1.x-portee;
+                    this.bombe.yarr=this.joueur1.y-portee;
+                }
+                if (this.joueur1.bas ) {
+                    this.bombe.xarr=this.joueur1.x-portee;
+                    this.bombe.yarr=this.joueur1.y+portee;
+                } 
+                else{
+                    this.bombe.xarr=this.joueur1.x-portee;
+                    this.bombe.yarr=this.joueur1.y;
+                }
+            }else if (this.joueur1.droite ) {
+                if (this.joueur1.haut ) {
+                    this.bombe.xarr=this.joueur1.x+portee;
+                    this.bombe.yarr=this.joueur1.y-portee;
+                }
+                if (this.joueur1.bas ) {
+                    this.bombe.xarr=this.joueur1.x+portee;
+                    this.bombe.yarr=this.joueur1.y+portee;                    
+                }
+                else{
+                    this.bombe.xarr=this.joueur1.x+portee;
+                    this.bombe.yarr=this.joueur1.y;
+                }    
+            }else if (this.joueur1.haut ) {
+                this.bombe.xarr=this.joueur1.x;
+                this.bombe.yarr=this.joueur1.y-portee;
+            }else if (this.joueur1.bas ) {
+                this.bombe.xarr=this.joueur1.x;
+                this.bombe.yarr=this.joueur1.y+portee;
+            }else{
+                this.bombe.xarr=this.joueur1.x+portee;
+                this.bombe.yarr=this.joueur1.y;
+            }                     
+        //}        
     }
     public Joueur getJoueur(){
         return(this.joueur1);
