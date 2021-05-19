@@ -117,5 +117,15 @@ public class Oeuf {
     public double getY () {
         return y;
     }
+    
+    public boolean seTrouveEnCoordonnéesIntiales(){
+        if ((this.x ==30) && (this.y == 45)){
+            return true;
+            
+        } else { 
+            return false;
+        }
+        
+    }
         
 }

@@ -135,4 +135,15 @@ public class Jeu {
         //this.connection.close();
     }
     
+    public boolean estTermine(){
+        if (this.oeuf.seTrouveEnCoordonnéesIntiales()){
+            return true;
+        }
+        else {
+            return false;
+           
+        }
+    }
+    
+    
 }
