@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -177,12 +179,30 @@ public FenetreDeJeu(String pseudo) throws SQLException {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        String pseudo = JOptionPane.showInputDialog(null, "Entrez votre pseudo");
-        if (pseudo != null) {
-            FenetreDeJeu fenetre = new FenetreDeJeu(pseudo);
-            fenetre.setVisible(true);
-        }       
-
+        int nombreDeJoueur = 0;
+        try {
+            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            PreparedStatement requete = connexion.prepareStatement("SELECT pseudo FROM joueur;");
+            ResultSet resultat = requete.executeQuery();
+            while (resultat.next()) { // pour chaque joueur
+                nombreDeJoueur = nombreDeJoueur +1;   
+            }
+            requete.close();
+            connexion.close();
+            }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if(nombreDeJoueur <= 3){
+            String pseudo = JOptionPane.showInputDialog(null, "Entrez votre pseudo");
+            if (pseudo != null) {
+                FenetreDeJeu fenetre = new FenetreDeJeu(pseudo);
+                fenetre.setVisible(true);
+            } 
+        }
+        else{
+            System.out.println("ERREUR! Joueur plus de 4.");
+            JOptionPane.showMessageDialog(null, "ERREUR! Joueur plus de 4");
+        }
     }
-    
+
 }

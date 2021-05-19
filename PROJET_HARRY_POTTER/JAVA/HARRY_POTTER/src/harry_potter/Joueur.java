@@ -31,14 +31,40 @@ public class Joueur {
     
     public  Joueur(String pseudo,Connection connexion){
         
+        int ordreDeJoueur = 0;
+        try {
+            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            PreparedStatement requete = connexion.prepareStatement("SELECT pseudo FROM joueur;");
+            ResultSet resultat = requete.executeQuery();
+            while (resultat.next()) { // pour chaque joueur
+                ordreDeJoueur = ordreDeJoueur +1;   
+            }
+            requete.close();
+            //connexion.close();
+            }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
          try {
          this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/harry potter1.png"));
          } catch ( IOException ex ) {
              Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
          }
-         
-         this.x = 30;
-         this.y = 45;
+         if(ordreDeJoueur==0){
+            this.x = 30;
+            this.y = 45;
+        }
+        if(ordreDeJoueur==1){
+            this.x = 780;
+            this.y = 45;
+        }
+        if(ordreDeJoueur==2){
+            this.x = 30;
+            this.y = 440;
+        }
+        if(ordreDeJoueur==3){
+            this.x = 780;
+            this.y = 440;
+        }
          this.gauche = false;
          this.droite = false;
          this.haut = false;
@@ -48,6 +74,7 @@ public class Joueur {
          this.possedeLoeuf=0;
          this.health=100;
          this.connection=connexion;
+         
          try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?,?)");

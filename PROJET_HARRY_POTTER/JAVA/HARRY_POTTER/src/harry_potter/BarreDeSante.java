@@ -70,7 +70,7 @@ public class BarreDeSante {
             //    contexte.drawString(pseudo, 0, 0);
                 contexte.drawImage(this.image, 700, 0, null);
             //    contexte.drawString(pseudo, 700, 0);
-                contexte.drawImage(this.image, 0, 460, null);
+                contexte.drawImage(this.image, 0, 466, null);
             //    contexte.drawString(pseudo, 0, 460);
             }
             if (nombreDeJoueur >= 4){
@@ -78,9 +78,9 @@ public class BarreDeSante {
             //    contexte.drawString(pseudo, 0, 0);
                 contexte.drawImage(this.image, 700, 0, null);
             //    contexte.drawString(pseudo, 700, 0);
-                contexte.drawImage(this.image, 0, 460, null);
+                contexte.drawImage(this.image, 0, 466, null);
             //    contexte.drawString(pseudo, 0, 460);
-                contexte.drawImage(this.image, 700, 460, null);
+                contexte.drawImage(this.image, 700, 466, null);
             //    contexte.drawString(pseudo, 700, 460);
             }
     }

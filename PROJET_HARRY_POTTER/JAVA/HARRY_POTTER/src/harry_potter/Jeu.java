@@ -30,6 +30,7 @@ public class Jeu {
     protected Oeuf oeuf;
     protected Connection connection;
     protected BarreDeSante sante;
+    protected BarreDeSanteDragon santeDragon;
     
     public Jeu(String pseudo) throws SQLException {   
         this.connection = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
@@ -40,6 +41,7 @@ public class Jeu {
         this.bombe=new bombe(connection);
         this.oeuf = new Oeuf(connection);
         this.sante = new BarreDeSante(connection);
+        this.santeDragon = new BarreDeSanteDragon(connection);
     }
 
     public void miseAJour() {
@@ -49,12 +51,14 @@ public class Jeu {
         this.oeuf.miseAJour();
         this.sante.miseAJour();
         this.bombe.miseAJour();
+        this.santeDragon.miseAJour();
         //System.out.println(""+this.joueur1.x+""+this.joueur1.y);
     }
 
     public void rendu(Graphics2D contexte) throws SQLException {        
         this.carte.rendu(contexte);        
         this.afficherJoueurs(contexte);
+        this.santeDragon.rendu(contexte);
         this.dragon.rendu(contexte);
         this.oeuf.rendu(contexte);
         this.sante.rendu(contexte);
