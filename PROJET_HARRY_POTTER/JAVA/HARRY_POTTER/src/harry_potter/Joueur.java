@@ -28,10 +28,10 @@ public class Joueur {
     protected int possedeLoeuf;
     private bombe bombe;
     protected int health;
+    protected int ordreDeJoueur;
     
-    public  Joueur(String pseudo,Connection connexion){
-        
-        int ordreDeJoueur = 0;
+    public  Joueur(String pseudo,Connection connexion){        
+        ordreDeJoueur = 0;
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = connexion.prepareStatement("SELECT pseudo FROM joueur;");

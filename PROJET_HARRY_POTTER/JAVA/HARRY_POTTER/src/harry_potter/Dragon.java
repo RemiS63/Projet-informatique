@@ -24,8 +24,8 @@ public class Dragon {
     protected double x, y;
     protected BufferedImage sprite;
     protected Connection connection;
-    protected int PointsDeVieDragon;
     protected Font fonte;
+    protected int health;
     
     
     public Dragon(Connection connexion){
@@ -37,7 +37,7 @@ public class Dragon {
         }
         this.x = 400;       //milieu de map d'axe x
         this.y = 250;       //milieu de map d'axe y
-        this.PointsDeVieDragon = 100;
+        this.health = 100;
         this.connection=connexion;
         this.fonte = new Font("TimesRoman ",Font.BOLD,18);
     }
@@ -164,7 +164,7 @@ public class Dragon {
     public void rendu ( Graphics2D contexte ) {
         contexte.setFont(fonte);
         contexte.drawImage (this. sprite , (int) x-sprite.getWidth()/2 , (int) y-sprite.getHeight()/2 , null);
-        contexte.drawString("PV Dragon = " + PointsDeVieDragon, 325, 25);
+        contexte.drawString("PV Dragon = " + health, 325, 25);
     }
     
     public void demarrer() {
