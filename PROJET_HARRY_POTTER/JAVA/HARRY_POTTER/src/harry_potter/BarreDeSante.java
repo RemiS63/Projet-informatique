@@ -25,6 +25,8 @@ public class BarreDeSante {
     private BufferedImage image;
     protected Connection connection;
     protected int nombreDeJoueur;
+    protected String PseudoJoueurLocal;
+    protected String psuedo1, psuedo2, psuedo3, psuedo4;
     
     public BarreDeSante( Connection connection){
         this.connection=connection;
@@ -43,13 +45,29 @@ public class BarreDeSante {
             ResultSet resultat = requete.executeQuery();
             while (resultat.next()) { // pour chaque joueur
                 nombreDeJoueur = nombreDeJoueur +1;
-                String pseudo = resultat.getString("pseudo");
-                //System.out.println("pseudo = " + pseudo);
+                if(nombreDeJoueur==1){
+                    PseudoJoueurLocal = resultat.getString("pseudo");
+                    psuedo1=PseudoJoueurLocal;
+                }
+                if(nombreDeJoueur==2){
+                    PseudoJoueurLocal = resultat.getString("pseudo");
+                    psuedo2=PseudoJoueurLocal;
+                }
+                if(nombreDeJoueur==3){
+                    PseudoJoueurLocal = resultat.getString("pseudo");
+                    psuedo3=PseudoJoueurLocal;
+                }
+                if(nombreDeJoueur==4){
+                    PseudoJoueurLocal = resultat.getString("pseudo");
+                    psuedo4=PseudoJoueurLocal;
+                }
+                //System.out.println("pseudo = " + PseudoJoueurLocal);
             } 
             requete.close();
             }catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
         //System.out.println("nombreDeJoueur = " + nombreDeJoueur);
         
     }
@@ -57,13 +75,16 @@ public class BarreDeSante {
     public void rendu(Graphics2D contexte) {
             if (nombreDeJoueur == 1){
                 contexte.drawImage(this.image, 0, 0, null);
-            //    contexte.drawString(pseudo, 0, 0);
+                contexte.drawString("Pseudo = " + psuedo1, 100, 50);
+                //System.out.println("pseudo = " + PseudoJoueurLocal);
             }
             if (nombreDeJoueur == 2){
                 contexte.drawImage(this.image, 0, 0, null);
-            //    contexte.drawString(pseudo, 0, 0);
+                contexte.drawString("Pseudo = " + psuedo1, 100, 50);
+                //System.out.println("pseudo = " + PseudoJoueurLocal);
                 contexte.drawImage(this.image, 700, 0, null);
-            //    contexte.drawString(pseudo, 700, 0);
+                contexte.drawString("Pseudo = " + psuedo2, 300, 200);
+                //System.out.println("pseudo = " + PseudoJoueurLocal);
             }
             if (nombreDeJoueur == 3){
                 contexte.drawImage(this.image, 0, 0, null);

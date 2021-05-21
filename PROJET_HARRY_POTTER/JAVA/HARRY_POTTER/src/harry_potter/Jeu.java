@@ -43,6 +43,9 @@ public class Jeu {
         this.sante = new BarreDeSante(connection);
         this.santeDragon = new BarreDeSanteDragon(connection);
     }
+    public Joueur getJoueur1() {
+        return joueur1;
+    }
 
     public void miseAJour() {
         this.carte.miseAJour();
