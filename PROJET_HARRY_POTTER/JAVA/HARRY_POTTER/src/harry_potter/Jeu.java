@@ -56,7 +56,7 @@ public class Jeu {
         this.bombe.miseAJour();
         this.santeDragon.miseAJour();
         this.faireDesDegats();
-        System.out.println(""+this.dragon.health);
+        //System.out.println(""+this.dragon.health);
         //System.out.println(""+this.joueur1.x+""+this.joueur1.y);
     }
 
@@ -73,8 +73,8 @@ public class Jeu {
         int portee = 100;
         double xb=this.joueur1.x;
         double yb=this.joueur1.y;
-        double xdep=this.joueur1.x;
-        double ydep=this.joueur1.y;   
+        double xdep=xb;
+        double ydep=yb;   
         double xarr = xb;
         double yarr = yb;
         this.bombe.affichee=true;
@@ -105,10 +105,10 @@ public class Jeu {
                 yarr=this.joueur1.y;
             }    
         }else if (this.joueur1.haut ) {
-            xarr=this.joueur1.x;
+            //xarr=this.joueur1.x;
             yarr=this.joueur1.y-portee;
         }else if (this.joueur1.bas ) {
-            xarr=this.joueur1.x;
+            //xarr=this.joueur1.x;
             yarr=this.joueur1.y+portee;
         }else{
             if (this.joueur1.ordreDeJoueur==0 || this.joueur1.ordreDeJoueur==2){
@@ -153,11 +153,11 @@ public class Jeu {
     public void faireDesDegats(){
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = this.connection.prepareStatement("SELECT x, y, avatar FROM arme WHERE affiche=1;");
+            PreparedStatement requete = this.connection.prepareStatement("SELECT x, y FROM arme WHERE affiche=1;");
             ResultSet resultat = requete.executeQuery();
             while (resultat.next()) {
                 double xb = resultat.getDouble("x");
-                double yb = resultat.getDouble("y");
+                double yb = resultat.getDouble("y");                
                 double xd = this.dragon.x;
                 double yd = this.dragon.y;
                 double rj = Math.sqrt(Math.pow(xd-xb,2) + Math.pow(yd-yb,2));               

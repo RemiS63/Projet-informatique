@@ -37,12 +37,12 @@ public class bombe {
         catch(IOException ex){
             Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.xb = xa;       //la position du dragon selon l'axe x
-        this.yb = ya;      //la position du dragon selon laxe y
-        this.xdep= xdepart;     // initialiser les coord de départ et d'arrivée avec les coord dragon/joueur
-        this.ydep= ydepart;
-        this.xarr= xarrive;
-        this.yarr= yarrive;
+        this.xb = Math.round(xa);       //la position du dragon selon l'axe x
+        this.yb = Math.round(ya);      //la position du dragon selon laxe y
+        this.xdep= Math.round(xdepart);     // initialiser les coord de départ et d'arrivée avec les coord dragon/joueur
+        this.ydep= Math.round(ydepart);
+        this.xarr= Math.round(xarrive);
+        this.yarr= Math.round(yarrive);
         this.affichee=true;      
         this.connection=connexion;
         this.vitesse=20;
@@ -71,7 +71,7 @@ public class bombe {
         //System.out.println("vdgvcgvc");
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = this.connection.prepareStatement("UPDATE arme SET x=x+(xarrive-xdepart)*1000/((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart)), y=y+(yarrive-ydepart)*1000/((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart)) WHERE ((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart))!=0");
+            PreparedStatement requete = this.connection.prepareStatement("UPDATE arme SET x=FLOOR(x+(xarrive-xdepart)*1000/((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart))), y=FLOOR(y+(yarrive-ydepart)*1000/((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart))) WHERE ((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart))!=0");
             requete.executeUpdate();
             requete.close();
             PreparedStatement requete1 = this.connection.prepareStatement("UPDATE arme SET affiche=0 WHERE (SIGN(xarrive-xdepart)=SIGN(FLOOR(x)-xarrive) && SIGN(yarrive-ydepart)=SIGN(FLOOR(y)-yarrive))");

@@ -159,6 +159,11 @@ public class Dragon {
             y = (int) sprite.getHeight()/2;
             System.out.println("dragon trop haut");
         }
+        if (this.health <=0){
+            this.x = 400;       //milieu de map d'axe x
+            this.y = 250; 
+            this.health=100;
+        }
     }
     
     public void rendu ( Graphics2D contexte ) {
