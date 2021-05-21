@@ -30,22 +30,42 @@ public class Feu {
     protected double vitesse;
     protected boolean affichee;
     
-    public Feu(Connection connexion){
+    public Feu(double xb,double yb,double xdep,double ydep,double xarr,double yarr,Connection connexion,boolean affiche){
         try{
             this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/boule de feu.png"));
         }
         catch(IOException ex){
             Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.xb = 0;       //la position du dragon selon l'axe x
-        this.yb = 0;      //la position du dragon selon laxe y
-        this.xdep= 0;     // initialiser les coord de départ et d'arrivée avec les coord dragon/joueur
-        this.ydep= 0;
-        this.xarr= 0;
-        this.yarr= 0;
-        this.affichee=false;      
+        this.xb = Math.round(xb);       //la position du dragon selon l'axe x
+        this.yb = Math.round(yb);      //la position du dragon selon laxe y
+        this.xdep= Math.round(xdep);     // initialiser les coord de départ et d'arrivée avec les coord dragon/joueur
+        this.ydep= Math.round(ydep);
+        this.xarr= Math.round(xarr);
+        this.yarr= Math.round(yarr);
+        this.affichee=affiche;      
         this.connection=connexion;
-        this.vitesse=25;
+        this.vitesse=20;
+        //this.degats=10;
+        try {
+            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            PreparedStatement requete = connexion.prepareStatement("INSERT INTO arme VALUES (0,?,?,?,?,?,?,?,?,?,?)");
+            requete.setString(1, "feu dragon");
+            requete.setDouble(2, 10);
+            requete.setString(3, "../MAP_DRAGON_images/boule de feu.png");
+            requete.setDouble(4, xb);
+            requete.setDouble(5, yb);
+            requete.setDouble(6, xdep); 
+            requete.setDouble(7, ydep);
+            requete.setDouble(8, xarr);
+            requete.setDouble(9, yarr);
+            requete.setBoolean(10, affichee);
+            requete.executeUpdate();
+            requete.close();
+            //connexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     public void miseAJour () {
         double xjd=this.xarr-this.xdep; //coordonne x entre le point de depart et l'arrivee
@@ -57,13 +77,14 @@ public class Feu {
             if (Math.signum(xjd)==Math.signum(xb-xarr) && Math.signum(yjd)==Math.signum(yb-yarr)){
                 this.affichee=false;
             }
-        }        
+        }
     }
    
     public void rendu ( Graphics2D contexte ) {
-        if(this.affichee==true){
+        /*if(this.affichee==true){
             contexte.drawImage (this. sprite , (int) xb , (int) yb , null);
         }
+        */
     }
  
     public double getX () {

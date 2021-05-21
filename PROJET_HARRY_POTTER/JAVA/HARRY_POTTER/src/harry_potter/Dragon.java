@@ -41,10 +41,10 @@ public class Dragon {
         this.health = 100;
         this.connection=connexion;
         this.fonte = new Font("TimesRoman ",Font.BOLD,18);
-        this.feu = new Feu(connection);
+        this.feu = new Feu(0,0,0,0,0,0,connection,false);
     }
     
-        public void miseAJour() {
+    public void miseAJour() {
         int aLoeuf = 0;
         double r = 200;     //radius de cercle
         double ro = 100;    //radius d'oeuf
@@ -132,7 +132,6 @@ public class Dragon {
                 this.x = x - xjd * 3 / djd; //dragon bouge 3 pixel
                 this.y = y - yjd * 3 / djd;
             }
-
         } else {
             if (this.feu.affichee == false) {
                 this.attaquerJoueur(xjoueur, yjoueur, this.x, this.y);
@@ -198,62 +197,55 @@ public class Dragon {
         return sprite.getWidth();
     }
     public void attaquerJoueur(double xjoueur, double yjoueur, double xdragon, double ydragon) {
-        //this.feu.affichee = true;
+        double xb = xdragon;
+        double yb = ydragon;
+        double xdep = xdragon;
+        double ydep = ydragon;
+        double xarr = xjoueur;
+        double yarr = yjoueur;
 
-        this.feu.xb = xdragon;
-        this.feu.yb = ydragon;
-        this.feu.xdep = xdragon;
-        this.feu.ydep = ydragon;
-        this.feu.xarr = xjoueur;
-        this.feu.yarr = yjoueur;
-
-        if (this.feu.xarr < xdragon) {
-            if (this.feu.yarr < ydragon) {
-                this.feu.xarr -= 30;
-                this.feu.yarr -= 30;
+        if (xarr < xdragon) {
+            if (yarr < ydragon) {
+                xarr -= 30;
+                yarr -= 30;
 
             }
-            if (this.feu.yarr > ydragon) {
+            if (yarr > ydragon) {
                 //this.feu.xarr -= 30;
                 //this.feu.yarr = ;
 
             } else {
-                this.feu.xarr -= 30;
+                xarr -= 30;
             }
 
         }
-        if (this.feu.xarr > xdragon) {
-            if (this.feu.yarr < ydragon) {
-                this.feu.xarr += 20;
-                this.feu.yarr -= 20;
+        if (xarr > xdragon) {
+            if (yarr < ydragon) {
+                xarr += 20;
+                yarr -= 20;
 
             }
-            if (this.feu.yarr > ydragon) {
-                this.feu.xarr += 20;
-                this.feu.yarr += 20;
+            if (yarr > ydragon) {
+                xarr += 20;
+                yarr += 20;
 
             } else {
-                this.feu.xarr += 20;
+                xarr += 20;
             }
 
         } else {
-            if (this.feu.yarr < ydragon) {
-
-                this.feu.yarr -= 20;
-
+            if (yarr < ydragon) {
+                yarr -= 20;
             }
-            if (this.feu.yarr > ydragon) {
-
-                this.feu.yarr += 20;
-
+            if (yarr > ydragon) {
+                yarr += 20;
             } else {
-                this.feu.xarr = xjoueur;
-                this.feu.yarr = yjoueur;;
+                xarr = xjoueur;
+                yarr = yjoueur;
             }
 
         }
-        this.feu.affichee = true;
-
+        this.feu=new Feu(xb,yb,xdep,ydep,xarr,yarr,this.connection,true);
     }
 
 }
