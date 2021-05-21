@@ -26,6 +26,7 @@ public class Dragon {
     protected Connection connection;
     protected Font fonte;
     protected int health;
+    protected Feu feu;
     
     
     public Dragon(Connection connexion){
@@ -40,10 +41,11 @@ public class Dragon {
         this.health = 100;
         this.connection=connexion;
         this.fonte = new Font("TimesRoman ",Font.BOLD,18);
+        this.feu = new Feu(connection);
     }
     
-    public void miseAJour () {  
-        int aLoeuf =0;
+        public void miseAJour() {
+        int aLoeuf = 0;
         double r = 200;     //radius de cercle
         double ro = 100;    //radius d'oeuf
         double djd = 0;     //distance entre joueur dragon
@@ -51,125 +53,128 @@ public class Dragon {
         double yjd = 0;     //coordonne y entre joueur dragon
         double dxjd = 0;    //distance x joueur dragon entre image
         double dyjd = 0;    //distance y joueur dragon entre image
+        double xjoueur = 0;
+        double yjoueur = 0;
         BufferedImage spritej = null;
-        double taille_joueur=40;
+        double taille_joueur = 40;
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = this.connection.prepareStatement("SELECT x, y, possedeLoeuf, avatar FROM joueur;");
-            ResultSet resultat = requete.executeQuery();            
-            while (resultat.next() && aLoeuf==0) { // pour chaque joueur
+            ResultSet resultat = requete.executeQuery();
+            while (resultat.next() && aLoeuf == 0) { // pour chaque joueur
                 double xj = resultat.getDouble("x");        //avoir le coordonne x de joueur
                 double yj = resultat.getDouble("y");        //avoir le coordonne y de joueur
                 String avatar = resultat.getString("avatar");
-                double rj = Math.sqrt(Math.pow(xj-400,2) + Math.pow(yj-250,2));     //radius de joueur
+                double rj = Math.sqrt(Math.pow(xj - 400, 2) + Math.pow(yj - 250, 2));     //radius de joueur
                 aLoeuf = resultat.getInt("possedeLoeuf");
-                if (aLoeuf==1) {
-                    try{
-                        spritej = ImageIO.read(getClass().getResource (avatar));
-                    }
-                    catch(IOException ex){
+                if (aLoeuf == 1) {
+                    try {
+                        spritej = ImageIO.read(getClass().getResource(avatar));
+                    } catch (IOException ex) {
                         Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
-                    } 
-                    double xjdn = this.x-xj;    //coordonne x dragon - joueur
-                    double yjdn = this.y-yj;    //coordonne y dragon - joueur
-                    double dxjdn = Math.abs(xjdn)-sprite.getWidth()/2-spritej.getWidth()/2;
-                    double dyjdn = Math.abs(yjdn)-sprite.getHeight()/2-spritej.getHeight()/2;
-                    double djdn = Math.sqrt(Math.pow(xjdn,2) + Math.pow(yjdn,2)); //distance entre joueur dragon                    
-                    xjd=xjdn;
-                    yjd=yjdn;   //plus proche joueur
-                    djd=djdn; 
-                    dxjd=dxjdn;
-                    dyjd=dyjdn;
-                    
-                }
-                else if(rj<r) { //si le joueur est dans le cercle
-                    try{
-                        spritej = ImageIO.read(getClass().getResource (avatar));
                     }
-                    catch(IOException ex){
+                    double xjdn = this.x - xj;    //coordonne x dragon - joueur
+                    double yjdn = this.y - yj;    //coordonne y dragon - joueur
+                    double dxjdn = Math.abs(xjdn) - sprite.getWidth() / 2 - spritej.getWidth() / 2;
+                    double dyjdn = Math.abs(yjdn) - sprite.getHeight() / 2 - spritej.getHeight() / 2;
+                    double djdn = Math.sqrt(Math.pow(xjdn, 2) + Math.pow(yjdn, 2)); //distance entre joueur dragon                    
+                    xjd = xjdn;
+                    yjd = yjdn;   //plus proche joueur
+                    djd = djdn;
+                    dxjd = dxjdn;
+                    dyjd = dyjdn;
+                    xjoueur = xj;
+                    yjoueur = yj;
+
+                } else if (rj < r) { //si le joueur est dans le cercle
+                    try {
+                        spritej = ImageIO.read(getClass().getResource(avatar));
+                    } catch (IOException ex) {
                         Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
-                    } 
-                    
-                    double xjdn = this.x-xj;    //coordonne x dragon - joueur
-                    double yjdn = this.y-yj;    //coordonne y dragon - joueur
-                    double dxjdn = Math.abs(xjdn)-sprite.getWidth()/2-spritej.getWidth()/2;
-                    double dyjdn = Math.abs(yjdn)-sprite.getHeight()/2-spritej.getHeight()/2;
-                    double djdn = Math.sqrt(Math.pow(xjdn,2) + Math.pow(yjdn,2)); //distance entre joueur dragon
+                    }
+
+                    double xjdn = this.x - xj;    //coordonne x dragon - joueur
+                    double yjdn = this.y - yj;    //coordonne y dragon - joueur
+                    double dxjdn = Math.abs(xjdn) - sprite.getWidth() / 2 - spritej.getWidth() / 2;
+                    double dyjdn = Math.abs(yjdn) - sprite.getHeight() / 2 - spritej.getHeight() / 2;
+                    double djdn = Math.sqrt(Math.pow(xjdn, 2) + Math.pow(yjdn, 2)); //distance entre joueur dragon
                     if (djd == 0) { //pour le premier joueur dans le cercle
-                        xjd=xjdn;
-                        yjd=yjdn;   //plus proche joueur
-                        djd=djdn; 
-                        dxjd=dxjdn;
-                        dyjd=dyjdn;
-                    }   
-                    
-                    
-                   if (djdn<djd){ //si ce joueur est plus proche que les autre
-                       xjd=xjdn;
-                        yjd=yjdn;
-                        djd=djdn;  
-                       dxjd=dxjdn;
-                      dyjd=dyjdn;
-                   }
-                   if(aLoeuf==1){
-                       
-                       
-                   }
-//                   if(rj<ro){
-//                       xjd=xjdn;
-//                        yjd=yjdn;       
-//                        djd=djdn;
-//                       dxjd=dxjdn;
-//                        dyjd=dyjdn;
-//                   }
+                        xjd = xjdn;
+                        yjd = yjdn;   //plus proche joueur
+                        djd = djdn;
+                        dxjd = dxjdn;
+                        dyjd = dyjdn;
+                        xjoueur = xj;
+                        yjoueur = yj;
+                    }
+
+                    if (djdn < djd) { //si ce joueur est plus proche que les autre
+                        xjd = xjdn;
+                        yjd = yjdn;
+                        djd = djdn;
+                        dxjd = dxjdn;
+                        dyjd = dyjdn;
+                        xjoueur = xj;
+                        yjoueur = yj;
+                    }
+
                 }
             }
             requete.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }             
-        if(djd==0){
-            xjd=this.x-400;
-            yjd=this.y-250;
-            djd=Math.sqrt(Math.pow(xjd,2) + Math.pow(yjd,2));
-            if(djd>3){
-                this.x=x-xjd*3/djd; //dragon bouge 3 pixel
-                this.y=y-yjd*3/djd;
-            }            
         }
-        if (dxjd>0){
-            this.x=x-xjd*3/djd; //dragon bouge 3 pixel            
-        } 
-        if (dyjd>0){
-            this.y=y-yjd*3/djd;
+        if (djd == 0) {
+            xjd = this.x - 400;
+            yjd = this.y - 250;
+            djd = Math.sqrt(Math.pow(xjd, 2) + Math.pow(yjd, 2));
+            if (djd > 3) {
+                this.x = x - xjd * 3 / djd; //dragon bouge 3 pixel
+                this.y = y - yjd * 3 / djd;
+            }
+
+        } else {
+            if (this.feu.affichee == false) {
+                this.attaquerJoueur(xjoueur, yjoueur, this.x, this.y);
+                System.out.println("feu");
+            }
+
+        }
+        if (dxjd > 0) {
+            //this.attaquerJoueur(xjoueur, yjoueur);
+            this.x = x - xjd * 3 / djd; //dragon bouge 3 pixel    
+
+        }
+        if (dyjd > 0) {
+            //this.attaquerJoueur(xjoueur, yjoueur);
+            this.y = y - yjd * 3 / djd;
+
         }
         if (x > 800) { // collision avec le bord droit de la scene
-            x = 800 ;
+            x = 800;
             System.out.println("dragon trop droite");
         }
-        if (x < sprite.getWidth()/2) { // collision avec le bord gauche de la scene
-            x = (int) sprite.getWidth()/2;
+        if (x < sprite.getWidth() / 2) { // collision avec le bord gauche de la scene
+            x = (int) sprite.getWidth() / 2;
             System.out.println("dragon trop gauche");
         }
-        if (y > 500 ) { // collision avec le bord bas de la scene
-            y = 500 ;
+        if (y > 500) { // collision avec le bord bas de la scene
+            y = 500;
             System.out.println("dragon trop bas");
         }
-        if (y < sprite.getHeight()/2) { // collision avec le bord haut de la scene
-            y = (int) sprite.getHeight()/2;
+        if (y < sprite.getHeight() / 2) { // collision avec le bord haut de la scene
+            y = (int) sprite.getHeight() / 2;
             System.out.println("dragon trop haut");
         }
-        if (this.health <=0){
-            this.x = 400;       //milieu de map d'axe x
-            this.y = 250; 
-            this.health=100;
-        }
+        this.feu.miseAJour();
+
     }
     
     public void rendu ( Graphics2D contexte ) {
         contexte.setFont(fonte);
         contexte.drawImage (this. sprite , (int) x-sprite.getWidth()/2 , (int) y-sprite.getHeight()/2 , null);
         contexte.drawString("PV Dragon = " + health, 325, 25);
+        this.feu.rendu(contexte);
     }
     
     public void demarrer() {
@@ -191,6 +196,64 @@ public class Dragon {
     
     public double getHauteur(){
         return sprite.getWidth();
+    }
+    public void attaquerJoueur(double xjoueur, double yjoueur, double xdragon, double ydragon) {
+        //this.feu.affichee = true;
+
+        this.feu.xb = xdragon;
+        this.feu.yb = ydragon;
+        this.feu.xdep = xdragon;
+        this.feu.ydep = ydragon;
+        this.feu.xarr = xjoueur;
+        this.feu.yarr = yjoueur;
+
+        if (this.feu.xarr < xdragon) {
+            if (this.feu.yarr < ydragon) {
+                this.feu.xarr -= 30;
+                this.feu.yarr -= 30;
+
+            }
+            if (this.feu.yarr > ydragon) {
+                //this.feu.xarr -= 30;
+                //this.feu.yarr = ;
+
+            } else {
+                this.feu.xarr -= 30;
+            }
+
+        }
+        if (this.feu.xarr > xdragon) {
+            if (this.feu.yarr < ydragon) {
+                this.feu.xarr += 20;
+                this.feu.yarr -= 20;
+
+            }
+            if (this.feu.yarr > ydragon) {
+                this.feu.xarr += 20;
+                this.feu.yarr += 20;
+
+            } else {
+                this.feu.xarr += 20;
+            }
+
+        } else {
+            if (this.feu.yarr < ydragon) {
+
+                this.feu.yarr -= 20;
+
+            }
+            if (this.feu.yarr > ydragon) {
+
+                this.feu.yarr += 20;
+
+            } else {
+                this.feu.xarr = xjoueur;
+                this.feu.yarr = yjoueur;;
+            }
+
+        }
+        this.feu.affichee = true;
+
     }
 
 }
