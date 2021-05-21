@@ -93,14 +93,20 @@ public FenetreDeJeu(String pseudo) throws SQLException {
                 PreparedStatement requete1 = connexion.prepareStatement("DELETE FROM objets"); 
                 requete1.executeUpdate();
                 requete1.close();
+                PreparedStatement requete2 = connexion.prepareStatement("DELETE FROM arme"); 
+                requete2.executeUpdate();
+                requete2.close();
+                PreparedStatement requete3 = connexion.prepareStatement("DELETE FROM ennemi"); 
+                requete3.executeUpdate();
+                requete3.close();
             //connexion.close();
             } catch (SQLException ex) {
             ex.printStackTrace();
             }
             System.out.println("jeu fini");
             this. timer . stop () ;
-            
-    
+            JOptionPane.showMessageDialog(null,"c'est le joueur "+this.jeu.joueur1.pseudo+ " qui a gagné");
+   
         }
     }
     
@@ -154,7 +160,9 @@ public FenetreDeJeu(String pseudo) throws SQLException {
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {  
         
+        if (this.jeu.sante.nombreDeJoueur==1){
          try {
+            
                 Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
                 PreparedStatement requete = connexion.prepareStatement("DELETE FROM joueur "); 
                  
@@ -165,15 +173,39 @@ public FenetreDeJeu(String pseudo) throws SQLException {
                 PreparedStatement requete1 = connexion.prepareStatement("DELETE FROM objets"); 
                 requete1.executeUpdate();
                 requete1.close();
-            //connexion.close();
-            } catch (SQLException ex) {
+                PreparedStatement requete2 = connexion.prepareStatement("DELETE FROM arme"); 
+                requete2.executeUpdate();
+                requete2.close();
+                PreparedStatement requete3 = connexion.prepareStatement("DELETE FROM ennemi"); 
+                requete3.executeUpdate();
+                requete3.close();
+                connexion.close();
+         } catch (SQLException ex) {
             ex.printStackTrace();
             }
             System.out.println("jeu fini");
             this. timer . stop () ;
+            JOptionPane.showMessageDialog(null, "Vous êtes sur le point de quitter le jeu");
             
-        System.out.println("Au revoir");
-    } 
+    }
+    else{        
+         try {            
+            Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            PreparedStatement requete = connexion.prepareStatement("DELETE FROM joueur WHERE pseudo=? "); 
+            requete.setString(1, this.jeu.joueur1.pseudo);
+            //requete.setString(1,"plo");                
+            //System.out.println(requete);
+            requete.executeUpdate();
+            requete.close();
+            connexion.close();
+         } catch (SQLException ex) {
+            ex.printStackTrace();
+            }
+            System.out.println("jeu fini");
+            this. timer . stop () ;
+            JOptionPane.showMessageDialog(null, "Vous êtes sur le point de quitter le jeu");
+        }
+}
 
     /**
      * @param args the command line arguments
