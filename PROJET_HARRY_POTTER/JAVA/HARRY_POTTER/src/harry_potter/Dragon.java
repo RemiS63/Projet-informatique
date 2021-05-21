@@ -135,7 +135,7 @@ public class Dragon {
         } else {
             if (this.feu.affichee == false) {
                 this.attaquerJoueur(xjoueur, yjoueur, this.x, this.y);
-                System.out.println("feu");
+                //System.out.println("feu");
             }
 
         }

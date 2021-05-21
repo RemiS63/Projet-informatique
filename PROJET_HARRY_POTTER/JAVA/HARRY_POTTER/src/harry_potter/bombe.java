@@ -30,9 +30,9 @@ public class bombe {
     protected double degats;
     
     
-    public bombe(Connection connexion,double xa,double ya,double xdepart,double ydepart,double xarrive,double yarrive){
+    public bombe(Connection connexion,double xa,double ya,double xdepart,double ydepart,double xarrive,double yarrive, String image){
         try{
-            this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/sortilège.png"));
+            this.sprite = ImageIO.read(getClass().getResource(image));
         }
         catch(IOException ex){
             Logger.getLogger(Dragon.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +52,7 @@ public class bombe {
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO arme VALUES (0,?,?,?,?,?,?,?,?,?,?)");
             requete.setString(1, "sort joueur");
             requete.setDouble(2, this.degats);
-            requete.setString(3, "../MAP_DRAGON_images/sortilège.png");
+            requete.setString(3, image);
             requete.setDouble(4, xb);
             requete.setDouble(5, yb);
             requete.setDouble(6, xdep); 

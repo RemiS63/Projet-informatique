@@ -31,6 +31,7 @@ public class Jeu {
     protected Connection connection;
     protected BarreDeSante sante;
     protected BarreDeSanteDragon santeDragon;
+    protected BufferedImage image;
     
     public Jeu(String pseudo) throws SQLException {   
         this.connection = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
@@ -38,7 +39,7 @@ public class Jeu {
         //System.out.println((getClass().getResource("../res/testmap.txt")).toString().substring(5));
         this.joueur1 = new Joueur(pseudo,connection);
         this.dragon = new Dragon(connection);
-        this.bombe=new bombe(connection,0,0,0,0,0,0);
+        this.bombe=new bombe(connection,0,0,0,0,0,0,"../MAP_DRAGON_images/sortilège.png");
         this.oeuf = new Oeuf(connection);
         this.sante = new BarreDeSante(connection);
         this.santeDragon = new BarreDeSanteDragon(connection);
@@ -77,40 +78,53 @@ public class Jeu {
         double ydep=yb;   
         double xarr = xb;
         double yarr = yb;
+        String image = "../MAP_DRAGON_images/sortilège.png";
         this.bombe.affichee=true;
         if (this.joueur1.gauche ) {
             if (this.joueur1.haut ) {
                 xarr=this.joueur1.x-portee;
                 yarr=this.joueur1.y-portee;
+                image = "../MAP_DRAGON_images/sortilège vers le haut.png";
             }
             if (this.joueur1.bas ) {
                 xarr=this.joueur1.x-portee;
                 yarr=this.joueur1.y+portee;
+                image = "../MAP_DRAGON_images/sortilège vers le bas.png";
             } 
             else{
                 xarr=this.joueur1.x-portee;
                 yarr=this.joueur1.y;
+                image = "../MAP_DRAGON_images/sortilège vers la gauche.png";
             }
-        }else if (this.joueur1.droite ) {
+        }
+        else if (this.joueur1.droite ) {
             if (this.joueur1.haut ) {
                 xarr=this.joueur1.x+portee;
                 yarr=this.joueur1.y-portee;
+                image = "../MAP_DRAGON_images/sortilège vers le haut.png";
             }
             if (this.joueur1.bas ) {
                 xarr=this.joueur1.x+portee;
-                yarr=this.joueur1.y+portee;                    
+                yarr=this.joueur1.y+portee; 
+                image = "../MAP_DRAGON_images/sortilège vers le bas.png";
             }
             else{
                 xarr=this.joueur1.x+portee;
                 yarr=this.joueur1.y;
+                image = "../MAP_DRAGON_images/sortilège.png";
             }    
-        }else if (this.joueur1.haut ) {
-            //xarr=this.joueur1.x;
+        }
+        else if (this.joueur1.haut ) {
+            xarr=this.joueur1.x;
             yarr=this.joueur1.y-portee;
-        }else if (this.joueur1.bas ) {
-            //xarr=this.joueur1.x;
+            image = "../MAP_DRAGON_images/sortilège vers le haut.png";
+        }
+        else if (this.joueur1.bas ) {
+            xarr=this.joueur1.x;
             yarr=this.joueur1.y+portee;
-        }else{
+            image = "../MAP_DRAGON_images/sortilège vers le bas.png";
+        }
+        else{
             if (this.joueur1.ordreDeJoueur==0 || this.joueur1.ordreDeJoueur==2){
                 xarr=this.joueur1.x+portee;
                 yarr=this.joueur1.y;
@@ -119,8 +133,8 @@ public class Jeu {
                 xarr=this.joueur1.x-portee;
                 yarr=this.joueur1.y;
             }            
-        }                  
-        this.bombe=new bombe(connection,xb,yb,xdep,ydep,xarr,yarr);
+        }                 
+        this.bombe=new bombe(connection,xb,yb,xdep,ydep,xarr,yarr, image);
                
     }
     public Joueur getJoueur(){
