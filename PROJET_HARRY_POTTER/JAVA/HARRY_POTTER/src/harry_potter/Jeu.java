@@ -86,7 +86,7 @@ public class Jeu {
                 yarr=this.joueur1.y-portee;
                 image = "../MAP_DRAGON_images/sortilège vers le haut.png";
             }
-            if (this.joueur1.bas ) {
+            else if (this.joueur1.bas ) {
                 xarr=this.joueur1.x-portee;
                 yarr=this.joueur1.y+portee;
                 image = "../MAP_DRAGON_images/sortilège vers le bas.png";
@@ -103,7 +103,7 @@ public class Jeu {
                 yarr=this.joueur1.y-portee;
                 image = "../MAP_DRAGON_images/sortilège vers le haut.png";
             }
-            if (this.joueur1.bas ) {
+            else if (this.joueur1.bas ) {
                 xarr=this.joueur1.x+portee;
                 yarr=this.joueur1.y+portee; 
                 image = "../MAP_DRAGON_images/sortilège vers le bas.png";
@@ -167,17 +167,31 @@ public class Jeu {
     public void faireDesDegats(){
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = this.connection.prepareStatement("SELECT x, y FROM arme WHERE affiche=1;");
+            PreparedStatement requete = this.connection.prepareStatement("SELECT x, y, degats FROM arme WHERE affiche=1;");
             ResultSet resultat = requete.executeQuery();
             while (resultat.next()) {
                 double xb = resultat.getDouble("x");
-                double yb = resultat.getDouble("y");                
-                double xd = this.dragon.x;
-                double yd = this.dragon.y;
-                double rj = Math.sqrt(Math.pow(xd-xb,2) + Math.pow(yd-yb,2));               
-                if (rj<50){
-                    this.dragon.health-=this.bombe.degats;
-                }        
+                double yb = resultat.getDouble("y"); 
+                double degats = resultat.getDouble("degats"); 
+                if (degats==10){
+                    //System.out.println("dragon");
+                    double xd = this.dragon.x;
+                    double yd = this.dragon.y;
+                    double rj = Math.sqrt(Math.pow(xd-xb,2) + Math.pow(yd-yb,2));               
+                    if (rj<50){
+                        this.dragon.health-=degats;
+                    }    
+                }
+                else if (degats==15){
+                    //System.out.println("joueur");
+                    double xd = this.joueur1.x;
+                    double yd = this.joueur1.y;
+                    double rj = Math.sqrt(Math.pow(xd-xb,2) + Math.pow(yd-yb,2));               
+                    if (rj<20){
+                        this.joueur1.health-=degats;
+                    }    
+                }
+                    
             }
             requete.close();
             //connexion.close();

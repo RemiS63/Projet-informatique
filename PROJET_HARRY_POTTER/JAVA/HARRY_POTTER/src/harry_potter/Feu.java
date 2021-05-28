@@ -51,7 +51,7 @@ public class Feu {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = connexion.prepareStatement("INSERT INTO arme VALUES (0,?,?,?,?,?,?,?,?,?,?)");
             requete.setString(1, "feu dragon");
-            requete.setDouble(2, 10);
+            requete.setDouble(2, 15);
             requete.setString(3, "../MAP_DRAGON_images/boule de feu.png");
             requete.setDouble(4, xb);
             requete.setDouble(5, yb);
