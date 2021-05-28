@@ -44,12 +44,12 @@ public class Joueur {
             }catch (SQLException ex) {
             ex.printStackTrace();
         }
-         try {
-         this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/harry potter1.png"));
-         } catch ( IOException ex ) {
-             Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
-         }
-         if(ordreDeJoueur==0){
+        try {
+        this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/harry potter1.png"));
+        } catch ( IOException ex ) {
+            Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
+        }
+        if(ordreDeJoueur==0){
             this.x = 30;
             this.y = 45;
         }
@@ -77,15 +77,16 @@ public class Joueur {
          
          try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?,?,?)");
             requete.setString(1, pseudo);
-            requete.setDouble(2, x);
-            requete.setDouble(3, y);
-            requete.setString(4, "../MAP_DRAGON_images/harry potter1.png");
-            requete.setDouble(5, vitesse);
-            requete.setDouble(6, this.health); 
-            requete.setDouble(7, 2);
-            requete.setInt(8, possedeLoeuf);
+            requete.setDouble(2, ordreDeJoueur);
+            requete.setDouble(3, x);
+            requete.setDouble(4, y);
+            requete.setString(5, "../MAP_DRAGON_images/harry potter1.png");
+            requete.setDouble(6, vitesse);
+            requete.setDouble(7, this.health); 
+            requete.setDouble(8, 2);
+            requete.setInt(9, possedeLoeuf);
             System.out.println(requete);
             requete.executeUpdate();
             requete.close();
@@ -140,8 +141,22 @@ public class Joueur {
             y = 45;
         } 
         if (this.health<=0){//le joueur n'a plus de point de vie
-            this.x=30;
-            this.y=45;
+            if(ordreDeJoueur==0){
+                this.x = 30;
+                this.y = 45;
+            }
+            if(ordreDeJoueur==1){
+                this.x = 780;
+                this.y = 45;
+            }
+            if(ordreDeJoueur==2){
+                this.x = 30;
+                this.y = 440;
+            }
+            if(ordreDeJoueur==3){
+                this.x = 780;
+                this.y = 440;
+            }
         }
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
