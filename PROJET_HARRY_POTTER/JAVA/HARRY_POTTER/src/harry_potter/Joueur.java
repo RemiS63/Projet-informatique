@@ -44,11 +44,13 @@ public class Joueur {
             }catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
         try {
-        this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/harry potter1.png"));
-        } catch ( IOException ex ) {
+            this. sprite = ImageIO.read(getClass().getResource("../MAP_DRAGON_images/harry potter1.png"));
+            } catch ( IOException ex ) {
             Logger . getLogger ( Joueur .class. getName () ). log ( Level . SEVERE , null , ex );
         }
+        
         if(ordreDeJoueur==0){
             this.x = 30;
             this.y = 45;
@@ -65,32 +67,33 @@ public class Joueur {
             this.x = 780;
             this.y = 440;
         }
-         this.gauche = false;
-         this.droite = false;
-         this.haut = false;
-         this.bas = false;
-         this.vitesse = 5;
-         this.pseudo=pseudo;
-         this.possedeLoeuf=0;
-         this.health=100;
-         this.connection=connexion;
-         
-         try {
-            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?,?,?)");
-            requete.setString(1, pseudo);
-            requete.setDouble(2, ordreDeJoueur);
-            requete.setDouble(3, x);
-            requete.setDouble(4, y);
-            requete.setString(5, "../MAP_DRAGON_images/harry potter1.png");
-            requete.setDouble(6, vitesse);
-            requete.setDouble(7, this.health); 
-            requete.setDouble(8, 2);
-            requete.setInt(9, possedeLoeuf);
-            System.out.println(requete);
-            requete.executeUpdate();
-            requete.close();
-            //connexion.close();
+        
+        this.gauche = false;
+        this.droite = false;
+        this.haut = false;
+        this.bas = false;
+        this.vitesse = 5;
+        this.pseudo=pseudo;
+        this.possedeLoeuf=0;
+        this.health=100;
+        this.connection=connexion;
+
+        try {
+           //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+           PreparedStatement requete = connexion.prepareStatement("INSERT INTO joueur VALUES (?,?,?,?,?,?,?,?,?)");
+           requete.setString(1, pseudo);
+           requete.setDouble(2, ordreDeJoueur);
+           requete.setDouble(3, x);
+           requete.setDouble(4, y);
+           requete.setString(5, "../MAP_DRAGON_images/harry potter1.png");
+           requete.setDouble(6, vitesse);
+           requete.setDouble(7, this.health); 
+           requete.setDouble(8, 2);
+           requete.setInt(9, possedeLoeuf);
+           System.out.println(requete);
+           requete.executeUpdate();
+           requete.close();
+           //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
