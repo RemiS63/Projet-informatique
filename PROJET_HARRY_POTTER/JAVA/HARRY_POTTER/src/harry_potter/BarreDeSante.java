@@ -55,26 +55,27 @@ public class BarreDeSante {
     public void rendu(Graphics2D contexte) {
         try {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
-            PreparedStatement requete = connection.prepareStatement("SELECT pseudo, id FROM joueur;");
+            PreparedStatement requete = connection.prepareStatement("SELECT pseudo, id, pv FROM joueur;");
             ResultSet resultat = requete.executeQuery();
             while (resultat.next()) { // pour chaque joueur
                 id = resultat.getInt("id");
                 pseudo = resultat.getString("pseudo");
+                int pv =resultat.getInt("pv");
                 if(id == 0){
                     contexte.drawImage(this.image, 0, 0, null);
-                    contexte.drawString(pseudo, 15, 25);
+                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 10, 20);
                 }
                 if(id == 1){
                     contexte.drawImage(this.image, 700, 0, null);
-                    contexte.drawString(pseudo, 710, 25);
+                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 710, 25);
                 }
                 if(id == 2){
                     contexte.drawImage(this.image, 0, 466, null);
-                    contexte.drawString(pseudo, 15, 490);
+                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 15, 490);
                 }
                 if(id == 3){
                     contexte.drawImage(this.image, 700, 466, null);
-                    contexte.drawString(pseudo, 710, 490);
+                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 710, 490);
                 }
             }
             requete.close();

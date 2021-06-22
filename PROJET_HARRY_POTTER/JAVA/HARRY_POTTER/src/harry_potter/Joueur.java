@@ -144,6 +144,7 @@ public class Joueur {
             y = 45;
         } 
         if (this.health<=0){//le joueur n'a plus de point de vie
+            this.health=100;
             if(ordreDeJoueur==0){
                 this.x = 30;
                 this.y = 45;
