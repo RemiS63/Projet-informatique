@@ -62,19 +62,19 @@ public class BarreDeSante {
                 pseudo = resultat.getString("pseudo");
                 if(id == 0){
                     contexte.drawImage(this.image, 0, 0, null);
-                    contexte.drawString(pseudo, 25, 20);
+                    contexte.drawString(pseudo, 15, 25);
                 }
                 if(id == 1){
                     contexte.drawImage(this.image, 700, 0, null);
-                    contexte.drawString(pseudo, 750, 25);
+                    contexte.drawString(pseudo, 710, 25);
                 }
                 if(id == 2){
                     contexte.drawImage(this.image, 0, 466, null);
-                    contexte.drawString(pseudo, 25, 400);
+                    contexte.drawString(pseudo, 15, 490);
                 }
                 if(id == 3){
                     contexte.drawImage(this.image, 700, 466, null);
-                    contexte.drawString(pseudo, 750, 400);
+                    contexte.drawString(pseudo, 710, 490);
                 }
             }
             requete.close();
