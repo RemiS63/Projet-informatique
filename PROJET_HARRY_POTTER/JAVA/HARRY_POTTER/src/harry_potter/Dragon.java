@@ -5,6 +5,7 @@
  */
 package harry_potter;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -171,6 +172,7 @@ public class Dragon {
     
     public void rendu ( Graphics2D contexte ) {
         contexte.setFont(fonte);
+        contexte.setColor(Color.BLACK);
         contexte.drawImage (this. sprite , (int) x-sprite.getWidth()/2 , (int) y-sprite.getHeight()/2 , null);
         contexte.drawString("PV Dragon = " + health, 325, 25);
         this.feu.rendu(contexte);

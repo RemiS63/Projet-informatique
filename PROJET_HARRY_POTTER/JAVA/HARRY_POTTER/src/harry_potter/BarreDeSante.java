@@ -5,6 +5,8 @@
  */
 package harry_potter;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -27,9 +29,11 @@ public class BarreDeSante {
     protected int nombreDeJoueur;
     protected String pseudo;
     protected int id;
+    protected Font fonte;
     
     public BarreDeSante( Connection connection){
         this.connection=connection;
+        this.fonte = new Font("TimesRoman ",Font.BOLD,18);
         try {
             image = ImageIO.read(getClass().getResource ("../MAP_DRAGON_images/barre de santé.png"));
         } catch (IOException ex) {
@@ -57,17 +61,19 @@ public class BarreDeSante {
             //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = connection.prepareStatement("SELECT pseudo, id, pv FROM joueur;");
             ResultSet resultat = requete.executeQuery();
+            contexte.setFont(fonte);
+            contexte.setColor(Color.white);
             while (resultat.next()) { // pour chaque joueur
                 id = resultat.getInt("id");
                 pseudo = resultat.getString("pseudo");
                 int pv =resultat.getInt("pv");
                 if(id == 0){
                     contexte.drawImage(this.image, 0, 0, null);
-                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 10, 20);
+                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 15, 22);
                 }
                 if(id == 1){
                     contexte.drawImage(this.image, 700, 0, null);
-                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 710, 25);
+                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 710, 22);
                 }
                 if(id == 2){
                     contexte.drawImage(this.image, 0, 466, null);
