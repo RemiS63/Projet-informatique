@@ -118,31 +118,40 @@ public class Oeuf {
         return y;
     }
     
-    public boolean seTrouveEnCoordonnéesIntiales(){
+    public int CoordonneesGagne(){
+        
         if ((30<= this.x  && this.x <=110) && (45<=this.y && this.y<=95)){
-            return true;
+            return 0;
             
         } else { 
             
             if ((691<= this.x  && this.x <=771) && (45<=this.y && this.y<=95)){
-                return true;
+                return 1;
                 
             } else {
                
                 if ((30<= this.x  && this.x <=110) && (413<=this.y && this.y<=453)){
-                    return true;
+                    return 2;
                     
                 } else {
                      if ((691<= this.x  && this.x <=771) && (413<=this.y && this.y<=453)){
-                         return true;
+                         return 3;
                          
                      } else {
-                         return false;
+                         return 4;
                      }
                 }
             }
         }
         
+    }
+    
+    public boolean seTrouveEnCoordonnéesIntiales(){
+        if (this.CoordonneesGagne()==4 ){
+            return false;
+        } else{
+            return true;
+        }
     }
 }
       
