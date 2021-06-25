@@ -40,9 +40,7 @@ public class Jeu {
         this.joueur1 = new Joueur(pseudo,connection);
         this.dragon = new Dragon(connection);
         this.bombe=new bombe(connection,0,0,0,0,0,0,"../MAP_DRAGON_images/sortilège.png");
-        if (this.joueur1.ordreDeJoueur==0){
-            this.oeuf = new Oeuf(connection);
-        }        
+        this.oeuf = new Oeuf(connection);       
         this.sante = new BarreDeSante(connection);
         this.santeDragon = new BarreDeSanteDragon(connection);
     }

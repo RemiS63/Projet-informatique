@@ -119,13 +119,30 @@ public class Oeuf {
     }
     
     public boolean seTrouveEnCoordonnéesIntiales(){
-        if ((this.x ==30) && (this.y == 45)){
+        if ((30<= this.x  && this.x <=110) && (45<=this.y && this.y<=95)){
             return true;
             
         } else { 
-            return false;
+            
+            if ((691<= this.x  && this.x <=771) && (45<=this.y && this.y<=95)){
+                return true;
+                
+            } else {
+               
+                if ((30<= this.x  && this.x <=110) && (413<=this.y && this.y<=453)){
+                    return true;
+                    
+                } else {
+                     if ((691<= this.x  && this.x <=771) && (413<=this.y && this.y<=453)){
+                         return true;
+                         
+                     } else {
+                         return false;
+                     }
+                }
+            }
         }
         
     }
-        
 }
+      
