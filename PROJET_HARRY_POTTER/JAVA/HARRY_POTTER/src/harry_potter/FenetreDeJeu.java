@@ -79,13 +79,11 @@ public FenetreDeJeu(String pseudo) throws SQLException {
         this.jeu.miseAJour();
         try {
             this.jeu.rendu(contexteBuffer);
-        } catch (SQLException ex) {
+            } catch (SQLException ex) {
             Logger.getLogger(FenetreDeJeu.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.jLabel1.repaint();
         if (this.jeu.estTermine()){
-            
-       
             try {
                 Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
                 PreparedStatement requete = connexion.prepareStatement("DELETE FROM joueur "); 
@@ -137,26 +135,21 @@ public FenetreDeJeu(String pseudo) throws SQLException {
             ex.printStackTrace();
             }
             if (this.jeu.oeuf.CoordonneesGagne()==0 ){
-                    id=0;
-                    JOptionPane.showMessageDialog(null,"c'est le joueur "+pseudo1+ " qui a gagné");
-                    
-                }
-                if (this.jeu.oeuf.CoordonneesGagne()==1 ){
-                    id=1;
-                    JOptionPane.showMessageDialog(null,"c'est le joueur "+pseudo2+ " qui a gagné");
-                    
-                }
-                if (this.jeu.oeuf.CoordonneesGagne()==2 ){
-                    id=2;
-                    JOptionPane.showMessageDialog(null,"c'est le joueur "+pseudo3+ " qui a gagné");
-                    
-                }
-                if (this.jeu.oeuf.CoordonneesGagne()==3 ){
-                    id=3;
-                    JOptionPane.showMessageDialog(null,"c'est le joueur "+pseudo4+ " qui a gagné");
-                    
-                }
-   
+                id=0;
+                JOptionPane.showMessageDialog(null,"c'est le joueur 1 qui a gagné");
+            }
+            if (this.jeu.oeuf.CoordonneesGagne()==1 ){
+                id=1;
+                JOptionPane.showMessageDialog(null,"c'est le joueur 2 qui a gagné");
+            }
+            if (this.jeu.oeuf.CoordonneesGagne()==2 ){
+                id=2;
+                JOptionPane.showMessageDialog(null,"c'est le joueur 3 qui a gagné");
+            }
+            if (this.jeu.oeuf.CoordonneesGagne()==3 ){
+                id=3;
+                JOptionPane.showMessageDialog(null,"c'est le joueur 4 qui a gagné");
+            }
         }
     }
     
