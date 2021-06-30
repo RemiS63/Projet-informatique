@@ -70,27 +70,15 @@ public class bombe {
     public void miseAJour () {
         //System.out.println("vdgvcgvc");
         try {
-            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = this.connection.prepareStatement("UPDATE arme SET x=FLOOR(x+(xarrive-xdepart)*1000/((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart))), y=FLOOR(y+(yarrive-ydepart)*1000/((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart))) WHERE ((xarrive-xdepart)*(xarrive-xdepart)+(yarrive-ydepart)*(yarrive-ydepart))!=0");
-            requete.executeUpdate();
+            requete.executeUpdate();    //on realise la mise a jour des positions des sortileges des joueurs et du dragon qui sont affichée
             requete.close();
             PreparedStatement requete1 = this.connection.prepareStatement("UPDATE arme SET affiche=0 WHERE (SIGN(xarrive-xdepart)=SIGN(FLOOR(x)-xarrive) && SIGN(yarrive-ydepart)=SIGN(FLOOR(y)-yarrive))");
-            requete1.executeUpdate();
+            requete1.executeUpdate();   //on affiche uniquement les sorts qui n'ont pas atteint leurs positions finales 
             requete1.close();
-            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }/*
-        double xjd=this.xarr-this.xdep; //coordonne x entre le point de depart et l'arrivee
-        double yjd=this.yarr-this.ydep; //coordonne y entre le poinyt de depart et l'arrivee
-        double d=Math.sqrt(Math.pow(xjd,2) + Math.pow(yjd,2));
-        if(d!=0){
-            this.xb=xb+xjd*this.vitesse/d;
-            this.yb=yb+yjd*this.vitesse/d;
-            if (Math.signum(xjd)==Math.signum(xb-xarr) && Math.signum(yjd)==Math.signum(yb-yarr)){
-                this.affichee=false;
-            }
-        } */       
+        }  
     }
     public void rendu ( Graphics2D contexte ) {
         try {

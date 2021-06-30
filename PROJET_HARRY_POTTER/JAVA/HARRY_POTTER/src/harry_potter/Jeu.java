@@ -71,8 +71,8 @@ public class Jeu {
         this.bombe.rendu(contexte);
     }
         public void lancerBombe(){
-        int portee = 100;
-        double xb=this.joueur1.x;
+        int portee = 100;           //portée des sorts du joueurs
+        double xb=this.joueur1.x;   //les coordonnées de départ de la bombe sont les coordonnées actuels du joueur
         double yb=this.joueur1.y;
         double xdep=xb;
         double ydep=yb;   
@@ -80,8 +80,8 @@ public class Jeu {
         double yarr = yb;
         String image = "../MAP_DRAGON_images/sortilège.png";
         this.bombe.affichee=true;
-        if (this.joueur1.gauche ) {
-            if (this.joueur1.haut ) {
+        if (this.joueur1.gauche ) {         //en fonction de la direction de déplacement du joueur, on modifie la direction
+            if (this.joueur1.haut ) {       // dans laquelle on lance la bombe. On modifie également l'image de ce sort.
                 xarr=this.joueur1.x-portee;
                 yarr=this.joueur1.y-portee;
                 image = "../MAP_DRAGON_images/sortilège vers le haut.png";
@@ -124,17 +124,17 @@ public class Jeu {
             yarr=this.joueur1.y+portee;
             image = "../MAP_DRAGON_images/sortilège vers le bas.png";
         }
-        else{
-            if (this.joueur1.ordreDeJoueur==0 || this.joueur1.ordreDeJoueur==2){
-                xarr=this.joueur1.x+portee;
+        else{                                                                       //si le joueur ne se deplace pas
+            if (this.joueur1.ordreDeJoueur==0 || this.joueur1.ordreDeJoueur==2){    
+                xarr=this.joueur1.x+portee;     //si la position de départ du joueur est à gauche, il tire à droite          
                 yarr=this.joueur1.y;
             }
-            else{
+            else{                               //si la position de départ du joueur est à droite, il tire à gauche 
                 xarr=this.joueur1.x-portee;
                 yarr=this.joueur1.y;
             }            
         }                 
-        this.bombe=new bombe(connection,xb,yb,xdep,ydep,xarr,yarr, image);
+        this.bombe=new bombe(connection,xb,yb,xdep,ydep,xarr,yarr, image);  //on crée une bombe avec les coordonée de determinée
                
     }
     public Joueur getJoueur(){
@@ -166,35 +166,30 @@ public class Jeu {
     }
     public void faireDesDegats(){
         try {
-            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
             PreparedStatement requete = this.connection.prepareStatement("SELECT x, y, degats FROM arme WHERE affiche=1;");
-            ResultSet resultat = requete.executeQuery();
+            ResultSet resultat = requete.executeQuery();    //on parcourt la table des sorts
             while (resultat.next()) {
-                double xb = resultat.getDouble("x");
+                double xb = resultat.getDouble("x");        //on récupère la position et les dégats du sort
                 double yb = resultat.getDouble("y"); 
                 double degats = resultat.getDouble("degats"); 
-                if (degats==10){
-                    //System.out.println("dragon");
+                if (degats==10){    //si le sort fait 10 degats c'est un sort lancé par le joueur qui inflige des dégats au dragon
                     double xd = this.dragon.x;
                     double yd = this.dragon.y;
-                    double rj = Math.sqrt(Math.pow(xd-xb,2) + Math.pow(yd-yb,2));               
-                    if (rj<50){
+                    double rj = Math.sqrt(Math.pow(xd-xb,2) + Math.pow(yd-yb,2));    //on calcule la distance entre le sort le dragon       
+                    if (rj<50){     //si cette distance est suffisament faible on inflige des dégats au dragon
                         this.dragon.health-=degats;
                     }    
                 }
-                else if (degats==15){
-                    //System.out.println("joueur");
+                else if (degats==15){   //si le sort fait 15 degats c'est un sort lancé par le dragon qui inflige des dégats au joueur
                     double xd = this.joueur1.x;
                     double yd = this.joueur1.y;
-                    double rj = Math.sqrt(Math.pow(xd-xb,2) + Math.pow(yd-yb,2));               
-                    if (rj<20){
+                    double rj = Math.sqrt(Math.pow(xd-xb,2) + Math.pow(yd-yb,2));    //on calcule la distance entre le sort le dragon             
+                    if (rj<20){     //si cette distance est suffisament faible on inflige des dégats au joueur
                         this.joueur1.health-=degats;
                     }    
-                }
-                    
+                }                    
             }
             requete.close();
-            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

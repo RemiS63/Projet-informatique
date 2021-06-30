@@ -58,49 +58,41 @@ public class Oeuf {
     }
     
     public void miseAJour () {        
-        if (this.saisi ){
-            try {
-                //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+        if (this.saisi ){       //si c'est le joueur  qui joue sur l'ordinateur qui à l'oeuf
+            try {                
                 PreparedStatement requete = this.connection.prepareStatement("SELECT x,y FROM joueur WHERE pseudo=?;");
                 requete.setString(1, this.pseudo_joueur);
                 ResultSet resultat = requete.executeQuery();
                 while (resultat.next()) {
-                    this.x = resultat.getDouble("x");
+                    this.x = resultat.getDouble("x");       //on recupère les coordonnées du joueur
                     this.y = resultat.getDouble("y");
                 }
                 requete.close();
-                //connexion.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
         else{
-            try {
-                //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+            try {           //sinon on cherche dans la base de donnée si un joueur a l'oeuf
                 PreparedStatement requete = this.connection.prepareStatement("SELECT x,y,pseudo_joueur FROM objets WHERE id=1;");
                 ResultSet resultat = requete.executeQuery();
                 while (resultat.next()) {
-                    this.x = resultat.getDouble("x");
+                    this.x = resultat.getDouble("x");       //on recupere les coordonnées du joueur
                     this.y = resultat.getDouble("y");
-                    //boolean saisij=resultat.getBoolean("saisi");
                     this.pseudo_joueur=resultat.getString("pseudo_joueur");
-                    //System.out.println(""+x+"   "+y);
                 }
                 requete.close();
-                //connexion.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
-        try {
-            //Connection connexion = DriverManager.getConnection("jdbc:mysql://nemrod.ens2m.fr:3306/20202021_s2_vs1_tp1_harrypotter?serverTimezone=UTC", "harry", "XtCQDfMaoqzTyVam");
+        try {              //on mets ensuite à jour la base de donnée pour déplacer l'oeuf
             PreparedStatement requete = this.connection.prepareStatement("UPDATE objets SET x = ?, y = ?, pseudo_joueur=? WHERE id = 1");
             requete.setDouble(1, x);
             requete.setDouble(2, y);
             requete.setString(3, this.pseudo_joueur);
             requete.executeUpdate();
             requete.close();
-            //connexion.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }        
