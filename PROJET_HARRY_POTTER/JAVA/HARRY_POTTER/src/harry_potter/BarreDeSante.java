@@ -72,16 +72,16 @@ public class BarreDeSante {
                     contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 15, 22);
                 }
                 if(id == 1){
-                    contexte.drawImage(this.image, 700, 0, null);
-                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 710, 22);
+                    contexte.drawImage(this.image, 600, 0, null);
+                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 610, 22);
                 }
                 if(id == 2){
                     contexte.drawImage(this.image, 0, 466, null);
                     contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 15, 490);
                 }
                 if(id == 3){
-                    contexte.drawImage(this.image, 700, 466, null);
-                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 710, 490);
+                    contexte.drawImage(this.image, 600, 466, null);
+                    contexte.drawString(pseudo + "  " + Integer.toString(pv) + "pv", 610, 490);
                 }
             }
             requete.close();
